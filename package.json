@@ -4,7 +4,7 @@
     "description": "Battleship, the game. Built as a project from The Odin Project.",
     "private": "true",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "jest",
         "gh-deploy": "git push origin :gh-pages && git subtree push --prefix dist origin gh-pages",
         "gh-deploy-init": "git push origin && git subtree push --prefix dist origin gh-pages"
     },
@@ -12,7 +12,6 @@
     "author": "Keith Taylor",
     "license": "ISC",
     "devDependencies": {
-        "webpack": "^5.89.0",
         "autoprefixer": "^10.4.16",
         "css-loader": "^6.8.1",
         "eslint": "^8.52.0",
@@ -21,10 +20,12 @@
         "eslint-plugin-import": "^2.29.0",
         "html-loader": "^4.2.0",
         "html-webpack-plugin": "^5.5.3",
+        "jest": "^29.7.0",
         "postcss": "^8.4.31",
         "postcss-loader": "^7.3.3",
         "style-loader": "^3.3.3",
         "tailwindcss": "^3.3.5",
+        "webpack": "^5.89.0",
         "webpack-cli": "^5.1.4"
     }
 }
