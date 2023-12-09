@@ -10,21 +10,27 @@ describe('These suite of test will test the game board functionality', () => {
         testShip = new Ship(4);
     });
 
-    test.only('this will test that the specified spot in the game board is available', () => {
+    test('this will test that the specified spot in the game board is available', () => {
         expect(testField.isSpaceAvailable(4, 5, testField)).toBe(true);
     });
 
     test('this will return a placeholder for the ship on the board', () => {
-        expect(testField.placeShip(5, 5, testShip)).toBe(true);
+        expect(testField.placeShip(5, 5, testShip)).toBe(testField.field);
     });
 
     test('Missed attacks should display a placeholder', () => {
-        testField.placeShip(2, 2, testShip);
         expect(testField.receiveAttack(0, 0)).toBe(testField.field);
     });
 
-    test('Attacks on ships should mark a part of the ship', () => {
-        testField.placeShip(2, 2, testShip);
-        expect(testField.receiveAttack(2, 3)).toBe(testField.field);
+    test('Attacks on ships should increase the hits on a ship', () => {
+        expect(testField.receiveAttack(5, 6)).toBe(testField.field);
+    });
+
+    test('Attacks on ships should increase the hits on a ship', () => {
+        expect(testField.receiveAttack(5, 7)).toBe(testField.field);
+    });
+
+    test('Attacks on already missed spaces should be ignored', () => {
+        expect(testField.receiveAttack(0, 0)).toBe('hi');
     });
 });

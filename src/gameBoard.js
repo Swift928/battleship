@@ -47,27 +47,31 @@ class GameBoard {
     }
 
     receiveAttack(xCor, yCor) {
-        if (!(this.field[xCor][yCor] instanceof Ship)) {
+        const cellValue = this.field[xCor][yCor];
+
+        if (['missed', 'hit'].includes(cellValue)) {
+            return this.field;
+        }
+
+        if (cellValue instanceof Ship) {
+            cellValue.hit();
+            this.field[xCor][yCor] = 'hit';
+        } else {
             this.field[xCor][yCor] = 'missed';
-            return this.field;
         }
-        if (this.field[xCor][yCor] instanceof Ship) {
-            const ship = this.field[xCor][yCor];
-            ship.hit();
-            return this.field;
-        }
-        return -1;
+
+        return this.field;
     }
 }
 
-const testShip = new Ship(6);
-const first = new GameBoard();
-const tester = new Ship(3);
+// const testShip = new Ship(6);
+// const first = new GameBoard();
+// const tester = new Ship(3);
 
-console.log(first.placeShip(4, 4, testShip));
+// console.log(first.placeShip(4, 4, testShip));
 // console.log(first.receiveAttack(4, 3));
 
-console.log(first.placeShip(5, 5, tester));
+// console.log(first.placeShip(5, 5, tester));
 
 module.exports = {
     GameBoard,
