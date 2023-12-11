@@ -50,7 +50,7 @@ class GameBoard {
         const cellValue = this.field[xCor][yCor];
 
         if (['missed', 'hit'].includes(cellValue)) {
-            return this.field;
+            return false;
         }
 
         if (cellValue instanceof Ship) {
@@ -63,15 +63,6 @@ class GameBoard {
         return this.field;
     }
 }
-
-// const testShip = new Ship(6);
-// const first = new GameBoard();
-// const tester = new Ship(3);
-
-// console.log(first.placeShip(4, 4, testShip));
-// console.log(first.receiveAttack(4, 3));
-
-// console.log(first.placeShip(5, 5, tester));
 
 module.exports = {
     GameBoard,

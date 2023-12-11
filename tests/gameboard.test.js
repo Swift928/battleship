@@ -30,7 +30,7 @@ describe('These suite of test will test the game board functionality', () => {
         expect(testField.receiveAttack(5, 7)).toBe(testField.field);
     });
 
-    test('Attacks on already missed spaces should be ignored', () => {
-        expect(testField.receiveAttack(0, 0)).toBe('hi');
+    test('Attacks on already missed spaces should be returned false', () => {
+        expect(testField.receiveAttack(0, 0)).toBe(false);
     });
 });

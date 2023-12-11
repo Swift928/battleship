@@ -3,12 +3,9 @@ const { Ship } = require('../src/ships');
 describe('Ship', () => {
     let testShip;
 
-    beforeAll(
-        //  'This will initiate the ship class we will be using for testing'
-        () => {
-            testShip = new Ship(10);
-        }
-    );
+    beforeAll(() => {
+        testShip = new Ship(10);
+    });
 
     test('One hit on the ship should increment the hits on the ship by 1', () => {
         testShip.hit();
