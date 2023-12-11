@@ -1,2 +1,4 @@
 ship.test.js
 gameboard.test.js
+player.test.js
+computer.test.js
