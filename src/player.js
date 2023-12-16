@@ -4,7 +4,7 @@ const { Ship } = require('./ships');
 
 class Player {
     constructor(name) {
-        this.player = name;
+        this.playerName = name;
         this.playerField = new GameBoard();
         this.opponentBoard = null;
         this.ships = [
@@ -86,6 +86,3 @@ class Player {
 module.exports = {
     Player,
 };
-
-// const first = new Player('chief');
-// console.log(first.placeShip());
