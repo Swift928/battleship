@@ -10,12 +10,7 @@ class GameLoop {
         this.computer = new Computer();
     }
 
-    async playerName() {
-        return prompt('State your name commander! ');
-    }
-
-    async setPlayer() {
-        const value = await this.playerName();
+    async setPlayer(value) {
         this.player = new Player(value);
         this.player.opponentBoard = this.computer.computerField();
     }
@@ -26,11 +21,12 @@ class GameLoop {
         );
     }
 
-    async setPlayerBoard() {
+    async setPlayerBoard(value = null) {
         let blade = false;
 
         while (!blade) {
-            const userInput = (await this.userBoardInput()).toLowerCase();
+            const userInput =
+                value || (await this.userBoardInput()).toLowerCase();
 
             if (userInput === 'yes') {
                 await this.player.placeShip();
@@ -51,10 +47,6 @@ class GameLoop {
 
     // gameStatus() {}
 }
-
-// let first = new GameLoop();
-// console.log(first.setPlayer());
-// console.log(first.setPlayerBoard());
 
 module.exports = {
     GameLoop,

@@ -1,17 +1,27 @@
 import './style.css';
+import screenRender from './screenRender';
 
 const { GameLoop } = require('./gameLoop');
 
 (async () => {
     const game = new GameLoop();
+    const gridContainer = document.getElementById('playerField');
 
-    // Call your methods synchronously
-    await game.setPlayer();
-    const playerBoard = await game.setPlayerBoard();
+    const { playerName, playerShipPlacement } = await screenRender();
+    gridContainer.style.display = 'grid';
 
-    console.log('Player Board:', playerBoard);
+    await game.setPlayer(playerName);
+    const playerBoard = await game.setPlayerBoard(playerShipPlacement);
 
-    // Continue with other synchronous operations
-    // game.startGame();
-    // game.gameStatus();
+    for (let i = 0; i < playerBoard.length; i++) {
+        for (let j = 0; j < playerBoard[i].length; j++) {
+            const gridItem = document.createElement('div');
+
+            gridItem.classList.add('grid-item');
+
+            gridContainer.appendChild(gridItem);
+        }
+    }
+
+    console.log('Player Board:', JSON.stringify(playerBoard));
 })();
