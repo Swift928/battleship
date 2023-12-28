@@ -3,7 +3,56 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Document</title>
+        <title>BattleShip</title>
     <script defer src="bundle.js"></script></head>
-    <body></body>
+    <body class="bg-cyan-700">
+        <div class="m-2 p-2 border border-solid border-red-700">
+            <h1 class="text-center text-6xl">BattleShip</h1>
+        </div>
+        <div id="nameInputDiv" class="mt-9">
+            <form
+                action=""
+                id="nameInputForm"
+                class="flex flex-col items-center gap-5"
+            >
+                <label for="nameInput" class="text-lg"
+                    >State your name commander!</label
+                >
+                <input
+                    id="nameInput"
+                    type="text"
+                    class="outline-none px-1 rounded-sm"
+                    required
+                />
+                <button
+                    id="nameInputFormButton"
+                    class="bg-slate-400 rounded-lg px-3 text-xl"
+                    type="button"
+                >
+                    Enter
+                </button>
+            </form>
+
+            <div
+                id="shipPlacementChoice"
+                class="flex flex-col items-center gap-5 hidden"
+            >
+                <p id="shipPlacementMessage"></p>
+                <button
+                    class="placedShipButton bg-slate-400 rounded-lg px-3 text-xl"
+                    type="button"
+                >
+                    Yes
+                </button>
+                <button
+                    class="placedShipButton bg-slate-400 rounded-lg px-3 text-xl"
+                    type="button"
+                >
+                    No
+                </button>
+            </div>
+        </div>
+        <div id="gameFields"></div>
+        <div id="playerField" class="border border-solid border-black"></div>
+    </body>
 </html>
