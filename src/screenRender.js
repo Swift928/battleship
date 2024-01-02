@@ -19,7 +19,7 @@ const screenRender = () => {
             playerShipPlacement: '',
         };
 
-        const capitalizeWords = (words) => {
+        const capitalizedWords = (words) => {
             return words
                 .split(' ')
                 .map((word) => {
@@ -29,7 +29,7 @@ const screenRender = () => {
         };
 
         const shipPlacementMessage = (value) => {
-            placementMessage.innerHTML = `Commander ${capitalizeWords(
+            placementMessage.innerHTML = `Commander ${capitalizedWords(
                 value
             )}, do you want to place the ships,
             or have them randomly assigned! ('Yes' to place ships, 'No'

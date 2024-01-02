@@ -2,14 +2,38 @@
 @tailwind components;
 @tailwind utilities;
 
-#playerField {
-    grid-template-columns: repeat(10, 1fr);
-    grid-template-rows: repeat(10, 1fr);
+#playerField,
+#computerField {
+    grid-template-columns: repeat(10, minmax(50px, 50px));
     gap: 2px;
+    position: relative;
 }
 
 .grid-item {
     height: 50px;
     width: 50px;
     border: solid white 0.1px;
+}
+
+.overlay {
+    position: absolute;
+    z-index: -1;
+}
+
+.length3Ship {
+    object-fit: cover;
+    width: 125px;
+}
+
+.length4Ship {
+    width: 185px;
+}
+
+.length5Ship {
+    width: 225px;
+}
+
+.length2Ship {
+    width: 100px;
+    height: 50px !important;
 }
