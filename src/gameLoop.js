@@ -45,7 +45,12 @@ class GameLoop {
 
     // startGame() {}
 
-    // gameStatus() {}
+    gameStatus() {
+        let turn = null;
+        if (turn === player) {
+            this.computer.field.field.flat();
+        }
+    }
 }
 
 module.exports = {

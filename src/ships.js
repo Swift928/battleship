@@ -3,6 +3,7 @@ class Ship {
         this.length = length;
         this.sunk = false;
         this.hits = 0;
+        this.image = null;
     }
 
     hit() {
@@ -16,6 +17,26 @@ class Ship {
             return `Ship is Sunk`;
         }
         return `Ship Not Sunk`;
+    }
+
+    get shipImage() {
+        this.image = document.createElement('img');
+
+        if (this.length === 3) {
+            this.image.src = '/src/images/length3Ship.svg';
+            this.image.classList.add('length3Ship');
+        } else if (this.length === 4) {
+            this.image.src = '/src/images/length4Ship.png';
+            this.image.classList.add('length4Ship');
+        } else if (this.length === 5) {
+            this.image.src = '/src/images/length5Ship.png';
+            this.image.classList.add('length5Ship');
+        } else {
+            this.image.src = '/src/images/boat.png';
+            this.image.classList.add('length2Ship');
+        }
+
+        return this.image;
     }
 }
 

@@ -5,6 +5,7 @@
 #playerField,
 #computerField {
     grid-template-columns: repeat(10, minmax(50px, 50px));
+    grid-template-rows: repeat(10, minmax(50px, 50px));
     gap: 2px;
     position: relative;
 }
