@@ -57,13 +57,13 @@ describe('This suite will test the Player class functionality', () => {
         player.randomPlaceShip();
 
         // Player retrieves the opponent's field
-        player.targetField = computer.field;
+        player.targetField = computer.playerField;
 
         // Attack the computer field
         player.opponentBoard.receiveAttack(5, 6);
 
         // Ensure the opponents field is correctly loaded
-        expect(player.opponentBoard).toBe(computer.field);
+        expect(player.opponentBoard).toBe(computer.playerField);
     });
 
     test.skip('Correctly handles ship overlapping.', async () => {

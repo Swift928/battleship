@@ -14,7 +14,7 @@ describe('This suite will test the Computer class functionality', () => {
         computer.randomPlaceShip();
 
         let shipsPlaced = new Set(
-            computer.field.field.flat().filter((x) => x instanceof Ship)
+            computer.playerField.field.flat().filter((x) => x instanceof Ship)
         );
 
         expect(shipsPlaced.size).toBe(5);
