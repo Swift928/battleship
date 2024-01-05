@@ -101,7 +101,7 @@ class GameLoop {
                     (item) => !item.classList.contains('overlay')
                 );
 
-                const index = (10 - yCor - 1) * 10 + xCor;
+                const index = xCor * 10 + yCor;
 
                 const element = gridElements[index];
 
