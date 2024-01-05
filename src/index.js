@@ -60,7 +60,7 @@ const { GameLoop } = require('./gameLoop');
 
     await game.setPlayer(playerName);
     const playerBoard = await game.setPlayerBoard(playerShipPlacement);
-    const computerBoard = game.computer.field.field;
+    const computerBoard = game.computer.playerField.field;
 
     const shipsContainer = [];
 
@@ -71,6 +71,5 @@ const { GameLoop } = require('./gameLoop');
         }
     }
 
-    // console.log('Player Board:', JSON.stringify(playerBoard));
-    // console.log('Computer Board:', JSON.stringify(game.computer.field.field));
+    game.playGame();
 })();

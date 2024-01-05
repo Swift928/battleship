@@ -5,7 +5,6 @@
 #playerField,
 #computerField {
     grid-template-columns: repeat(10, minmax(50px, 50px));
-    grid-template-rows: repeat(10, minmax(50px, 50px));
     gap: 2px;
     position: relative;
 }
@@ -14,6 +13,22 @@
     height: 50px;
     width: 50px;
     border: solid white 0.1px;
+    position: relative;
+}
+
+#computerField:not(.game-over) .grid-item:hover {
+    background-color: rgba(54, 206, 54, 0.5);
+    cursor: pointer;
+}
+
+#computerField .used-item,
+#playerField .used-item {
+    background-color: rgb(128, 128, 128, 0.5);
+}
+
+#computerField:not(.game-over) .used-item:hover {
+    background-color: rgb(128, 128, 128, 0.5);
+    cursor: not-allowed;
 }
 
 .overlay {
@@ -37,4 +52,15 @@
 .length2Ship {
     width: 100px;
     height: 50px !important;
+}
+
+.dot {
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: #ffffffd6;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

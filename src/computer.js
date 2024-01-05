@@ -3,22 +3,21 @@ const { Player } = require('./player');
 class Computer extends Player {
     constructor() {
         super();
-        this.field = this.randomPlaceShip();
-        this.player = 'Computer';
-        this.opponentBoard = super.playerField;
+        this.playerField = this.randomPlaceShip();
+        this.playerName = 'Computer';
     }
 
-    computerField = () => this.field;
+    computerField = () => this.playerField;
 
     async computerAttack() {
         for (;;) {
-            await new Promise((resolve) => setTimeout(resolve, 200));
+            await new Promise((resolve) => setTimeout(resolve, 500));
 
             const xCor = Math.floor(Math.random() * 10);
             const yCor = Math.floor(Math.random() * 10);
 
             if (this.opponentBoard.receiveAttack(xCor, yCor)) {
-                return this.playerField;
+                return { xCor, yCor };
             }
         }
     }

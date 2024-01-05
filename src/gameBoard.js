@@ -7,9 +7,9 @@ class GameBoard {
 
     board() {
         const game = [];
-        for (let i = 0; i < 10; i++) {
+        for (let i = 0; i <= 9; i++) {
             const row = [];
-            for (let j = 0; j < 10; j++) {
+            for (let j = 0; j < +10; j++) {
                 row.push([i, j]);
             }
             game.push(row);
@@ -49,6 +49,10 @@ class GameBoard {
     receiveAttack(xCor, yCor) {
         const cellValue = this.field[xCor][yCor];
 
+        console.log(cellValue);
+        console.log(xCor, yCor);
+        console.log(this.field);
+
         if (['missed', 'hit'].includes(cellValue)) {
             return false;
         }
@@ -67,3 +71,7 @@ class GameBoard {
 module.exports = {
     GameBoard,
 };
+
+// let first = new GameBoard();
+// console.log(JSON.stringify(first.field));
+// console.log(first.field[3][5]);
