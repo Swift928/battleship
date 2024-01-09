@@ -28,9 +28,9 @@ const screenRender = () => {
                 .join(' ');
         };
 
-        const shipPlacementMessage = (value) => {
+        const shipPlacementMessage = (name) => {
             placementMessage.innerHTML = `Commander ${capitalizedWords(
-                value
+                name
             )}, do you want to place the ships,
             or have them randomly assigned! ('Yes' to place ships, 'No'
             to randomly assign ships)`;
@@ -40,7 +40,7 @@ const screenRender = () => {
             if (!nameInput.value.trim()) return;
             nameInputForm.classList.toggle('hidden');
             shipPlacementDiv.classList.toggle('hidden');
-            state.playerName = nameInput.value;
+            state.playerName = capitalizedWords(nameInput.value);
             shipPlacementMessage(state.playerName);
         };
 
