@@ -46,7 +46,7 @@ function makeField(thisBoard, thisField, i, j, shipsContainer) {
     thisBoard.append(gridItem);
 }
 
-const { GameLoop } = require('./gameLoop');
+const { GameLoop } = require('./gameFunctions/gameLoop');
 
 (async () => {
     const game = new GameLoop();
@@ -58,8 +58,8 @@ const { GameLoop } = require('./gameLoop');
     playerField.style.display = 'grid';
     computerField.style.display = 'grid';
 
-    await game.setPlayer(playerName);
-    const playerBoard = await game.setPlayerBoard(playerShipPlacement);
+    await game.setPlayer(playerName, playerShipPlacement);
+    const playerBoard = game.player.playerField.field;
     const computerBoard = game.computer.playerField.field;
 
     const shipsContainer = [];

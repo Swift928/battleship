@@ -10,16 +10,20 @@ class Computer extends Player {
     computerField = () => this.playerField;
 
     async computerAttack() {
-        for (;;) {
-            await new Promise((resolve) => setTimeout(resolve, 500));
+        return new Promise((resolve) => {
+            const attemptAttack = () => {
+                const xCor = Math.floor(Math.random() * 10);
+                const yCor = Math.floor(Math.random() * 10);
 
-            const xCor = Math.floor(Math.random() * 10);
-            const yCor = Math.floor(Math.random() * 10);
+                if (this.opponentBoard.receiveAttack(xCor, yCor)) {
+                    resolve({ xCor, yCor });
+                } else {
+                    attemptAttack();
+                }
+            };
 
-            if (this.opponentBoard.receiveAttack(xCor, yCor)) {
-                return { xCor, yCor };
-            }
-        }
+            setTimeout(attemptAttack, 500);
+        });
     }
 }
 

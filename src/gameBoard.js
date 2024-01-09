@@ -2,19 +2,7 @@ const { Ship } = require('./ships');
 
 class GameBoard {
     constructor() {
-        this.field = this.board();
-    }
-
-    board() {
-        const game = [];
-        for (let i = 0; i < 10; i++) {
-            const row = [];
-            for (let j = 0; j < 10; j++) {
-                row.push([i, j]);
-            }
-            game.push(row);
-        }
-        return game;
+        this.field = GameBoard.board();
     }
 
     placeShip(xCor, yCor, ship) {
@@ -66,12 +54,20 @@ class GameBoard {
 
         return this.field;
     }
+
+    static board() {
+        const game = [];
+        for (let i = 0; i < 10; i++) {
+            const row = [];
+            for (let j = 0; j < 10; j++) {
+                row.push([i, j]);
+            }
+            game.push(row);
+        }
+        return game;
+    }
 }
 
 module.exports = {
     GameBoard,
 };
-
-// let first = new GameBoard();
-// console.log(JSON.stringify(first.field));
-// console.log(first.field[3][5]);
