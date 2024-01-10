@@ -5,31 +5,61 @@ class GameBoard {
         this.field = GameBoard.board();
     }
 
-    placeShip(xCor, yCor, ship) {
-        if (!this.isSpaceAvailable(xCor, yCor, ship)) return false;
+    placeShip(xCor, yCor, ship, axis = null) {
+        if (!axis) {
+            if (!this.isSpaceAvailable(xCor, yCor, ship)) return false;
+            let y = yCor;
+            let { length } = ship;
+            if (y + length > 10) return false;
 
-        let y = yCor;
-        let { length } = ship;
-        if (y + length > 10) return false;
+            while (length) {
+                if (this.field[xCor][y] instanceof Ship) return false;
+                if (!this.field[xCor][y]) return false;
+                this.field[xCor][y] = ship;
+                y++;
+                length--;
+            }
+        } else {
+            if (!this.isSpaceAvailable(xCor, yCor, ship, axis)) return false;
+            let x = xCor;
+            let { length } = ship;
+            if (x + length > 10) return false;
 
-        while (length) {
-            this.field[xCor][y] = ship;
-            y++;
-            length--;
+            while (length) {
+                if (this.field[x][yCor] instanceof Ship) return false;
+                if (!this.field[x][yCor]) return false;
+                this.field[x][yCor] = ship;
+                ship.axis = true;
+                x++;
+                length--;
+            }
         }
-        return this.field;
+        return true;
     }
 
-    isSpaceAvailable(xCor, yCor, ship) {
-        let y = yCor;
-        let { length } = ship;
-        if (y + length > 10) return false;
+    isSpaceAvailable(xCor, yCor, ship, axis = null) {
+        if (!axis) {
+            let y = yCor;
+            let { length } = ship;
+            if (y + length > 10) return false;
 
-        while (length) {
-            if (this.field[xCor][y] instanceof Ship) return false;
-            if (!this.field[xCor][y]) return false;
-            y++;
-            length--;
+            while (length) {
+                if (this.field[xCor][y] instanceof Ship) return false;
+                if (!this.field[xCor][y]) return false;
+                y++;
+                length--;
+            }
+        } else {
+            let x = xCor;
+            let { length } = ship;
+            if (x + length > 10) return false;
+
+            while (length) {
+                if (this.field[x][yCor] instanceof Ship) return false;
+                if (!this.field[x][yCor]) return false;
+                x++;
+                length--;
+            }
         }
         return true;
     }
@@ -39,7 +69,6 @@ class GameBoard {
 
         console.log(cellValue);
         console.log(xCor, yCor);
-        console.log(this.field);
 
         if (['missed', 'hit'].includes(cellValue)) {
             return false;

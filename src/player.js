@@ -66,8 +66,9 @@ class Player {
             try {
                 const xCor = Math.floor(Math.random() * 10);
                 const yCor = Math.floor(Math.random() * 10);
+                const axis = Math.floor(Math.random() * 10) > 4;
 
-                if (this.playerField.placeShip(xCor, yCor, randomShip)) {
+                if (this.playerField.placeShip(xCor, yCor, randomShip, axis)) {
                     console.log('Ship placed successfully!');
                 } else {
                     this.ships.push(randomShip);

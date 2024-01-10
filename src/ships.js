@@ -4,6 +4,7 @@ class Ship {
         this.sunk = false;
         this.hits = 0;
         this.image = null;
+        this.axis = null;
     }
 
     hit() {

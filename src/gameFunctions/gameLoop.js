@@ -20,8 +20,8 @@ class GameLoop {
             shipPlacementAnswer
         );
         this.activePlayer = this.player.playerName;
-        this.player.opponentBoard = this.computer.computerField();
-        this.computer.opponentBoard = this.player.playerField;
+        this.player.targetField = this.computer.computerField();
+        this.computer.targetField = this.player.playerField;
     }
 
     async playGame() {
