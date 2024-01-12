@@ -1,8 +1,10 @@
-import { Ship } from '../ships';
+const { Ship } = require('../ships');
 
-export default class FieldCreation {
+class FieldCreation {
     static makeField(thisBoard, thisField, i, j, shipsContainer) {
         const gridItem = document.createElement('div');
+        gridItem.dataset.x = i;
+        gridItem.dataset.y = j;
         gridItem.classList.add('grid-item');
 
         if (thisField[i][j] instanceof Ship) {
@@ -83,3 +85,7 @@ export default class FieldCreation {
         }
     }
 }
+
+module.exports = {
+    FieldCreation,
+};

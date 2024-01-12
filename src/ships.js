@@ -1,6 +1,6 @@
 class Ship {
-    constructor(length) {
-        this.length = length;
+    constructor(_length) {
+        this.length = _length;
         this.sunk = false;
         this.hits = 0;
         this.image = null;

@@ -3,7 +3,8 @@
 @tailwind utilities;
 
 #playerField,
-#computerField {
+#computerField,
+.shipPlacementBoard {
     grid-template-columns: repeat(10, minmax(50px, 50px));
     gap: 2px;
     position: relative;
@@ -63,4 +64,22 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.good-placement {
+    background-color: yellow;
+    cursor: pointer;
+}
+
+.bad-placement {
+    background-color: red;
+    cursor: not-allowed;
+}
+
+.axis-button {
+    display: grid;
+    background-color: peachpuff;
+    height: 50px;
+    border-radius: 10px;
+    width: 150px;
 }

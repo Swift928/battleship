@@ -1,6 +1,7 @@
 import './style.css';
 import screenRender from './screenRender';
-import FieldCreation from './gameFields/fieldCreation';
+
+const { FieldCreation } = require('./gameFields/fieldCreation');
 
 const { GameLoop } = require('./gameFunctions/gameLoop');
 

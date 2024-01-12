@@ -17,16 +17,14 @@ class inputHandler {
                     .trim();
 
             if (userInput === 'yes') {
-                await player.placeShip();
+                await player.manualShipPlacement();
                 break;
             } else if (userInput === 'no') {
                 player.randomPlaceShip();
                 break;
             }
-
             console.log('Invalid input. Please type "Yes" or "No". \n');
         }
-
         return player.playerField.field;
     }
 }

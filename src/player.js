@@ -1,3 +1,4 @@
+const { FieldCreation } = require('../src/gameFields/fieldCreation');
 const prompt = require('prompt-sync')();
 const { GameBoard } = require('./gameBoard');
 const { Ship } = require('./ships');
@@ -29,6 +30,134 @@ class Player {
                     )
                 );
             }, 0);
+        });
+    }
+
+    hoverPlacement(element) {
+        const { x, y } = element.dataset;
+        let targetX = parseInt(x);
+        let targetY = parseInt(y);
+        const { length: shipLength } = this.ships[this.ships.length - 1];
+
+        if (
+            !this.playerField.isSpaceAvailable(
+                targetX,
+                targetY,
+                this.ships[this.ships.length - 1],
+                this.ships[this.ships.length - 1].axis
+            )
+        ) {
+            element.classList.add('bad-placement');
+            return;
+        }
+
+        if (!this.ships[this.ships.length - 1].axis) {
+            for (let i = 0; i < shipLength; i++) {
+                const nextItem = document.querySelector(
+                    `.shipPlacementBoard .grid-item[data-x='${targetX}'][data-y='${
+                        targetY + i
+                    }']`
+                );
+
+                nextItem.classList.add('good-placement');
+            }
+        } else {
+            for (let i = 0; i < shipLength; i++) {
+                const nextItem = document.querySelector(
+                    `.shipPlacementBoard .grid-item[data-x='${
+                        targetX + i
+                    }'][data-y='${targetY}']`
+                );
+
+                nextItem.classList.add('good-placement');
+            }
+        }
+    }
+
+    hoverPlacementRemove() {
+        const hoveredItems = document.querySelectorAll(
+            '.good-placement, .bad-placement'
+        );
+
+        hoveredItems.forEach((element) => {
+            element.classList.remove('good-placement', 'bad-placement');
+        });
+    }
+
+    manualShipPlacement() {
+        const gameFields = document.getElementById('gameFields');
+        return new Promise((resolve) => {
+            const axisButton = document.createElement('button');
+            axisButton.classList.add('axis-button');
+            axisButton.innerHTML = 'Axis: X';
+
+            axisButton.addEventListener('click', () => {
+                axisButton.innerHTML =
+                    axisButton.innerHTML === 'Axis: X' ? 'Axis: Y' : 'Axis: X';
+
+                const currentShip = this.ships[this.ships.length - 1];
+                currentShip.axis =
+                    axisButton.innerHTML === 'Axis: Y' ? true : null;
+            });
+
+            const shipPlacementBoard = document.createElement('div');
+            shipPlacementBoard.classList.add('shipPlacementBoard');
+            shipPlacementBoard.style.display = 'grid';
+
+            FieldCreation.renderBoard(
+                shipPlacementBoard,
+                this.playerField.field
+            );
+
+            this.sampleGridEventListeners(shipPlacementBoard, resolve);
+
+            gameFields.append(axisButton);
+            gameFields.append(shipPlacementBoard);
+        });
+    }
+
+    screenCleanUp() {
+        const shipPlacementBoard = document.querySelector(
+            '.shipPlacementBoard'
+        );
+        const axisButton = document.querySelector('.axis-button');
+
+        shipPlacementBoard.remove();
+        axisButton.remove();
+    }
+
+    sampleGridEventListeners(grid, resolve) {
+        grid.querySelectorAll('.grid-item').forEach((gridItem) => {
+            gridItem.addEventListener('mouseover', () =>
+                this.hoverPlacement(gridItem)
+            );
+            gridItem.addEventListener('mouseout', () =>
+                this.hoverPlacementRemove(gridItem)
+            );
+            gridItem.addEventListener('click', () => {
+                if (
+                    !this.playerField.placeShip(
+                        parseInt(gridItem.dataset.x, 10),
+                        parseInt(gridItem.dataset.y, 10),
+                        this.ships[this.ships.length - 1],
+                        this.ships[this.ships.length - 1].axis
+                    )
+                )
+                    return;
+                this.ships.pop();
+                this.hoverPlacementRemove(gridItem);
+                grid.innerHTML = '';
+                FieldCreation.renderBoard(grid, this.playerField.field);
+                if (this.ships.length === 0) {
+                    this.screenCleanUp();
+                    resolve();
+                } else {
+                    const axisButton = document.querySelector('.axis-button');
+                    axisButton.innerHTML = 'Axis: X';
+                    this.sampleGridEventListeners(grid, resolve);
+                    this.hoverPlacement(gridItem);
+                }
+            });
         });
     }
 
