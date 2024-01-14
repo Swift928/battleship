@@ -3,6 +3,9 @@ module.exports = {
     content: ['./src/index.html'],
     theme: {
         extend: {},
+        screens: {
+            lg: '1084px',
+        },
     },
     plugins: [],
 };

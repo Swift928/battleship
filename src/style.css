@@ -2,10 +2,14 @@
 @tailwind components;
 @tailwind utilities;
 
+#mainContainer {
+    scroll-behavior: smooth;
+}
+
 #playerField,
 #computerField,
 .shipPlacementBoard {
-    grid-template-columns: repeat(10, minmax(50px, 50px));
+    grid-template-columns: repeat(10, minmax(50px, 1fr));
     gap: 2px;
     position: relative;
 }
@@ -57,8 +61,8 @@
 
 .dot {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-color: #ffffffd6;
     border-radius: 50%;
     top: 50%;
@@ -76,10 +80,52 @@
     cursor: not-allowed;
 }
 
+.manualShipPlacementContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3rem;
+    width: 100%;
+}
+
 .axis-button {
-    display: grid;
     background-color: peachpuff;
     height: 50px;
     border-radius: 10px;
     width: 150px;
+}
+
+@media (max-width: 1084px) {
+    #playerField,
+    #computerField,
+    .shipPlacementBoard {
+        grid-template-columns: repeat(10, minmax(35px, 35px));
+    }
+
+    .dot {
+        width: 15px;
+        height: 15px;
+    }
+
+    .grid-item {
+        height: 35px;
+        width: 35px;
+    }
+
+    .length3Ship {
+        width: 87.5px;
+    }
+
+    .length4Ship {
+        width: 129.5px;
+    }
+
+    .length5Ship {
+        width: 157.5px;
+    }
+
+    .length2Ship {
+        width: 70px;
+        height: 35px !important;
+    }
 }

@@ -87,6 +87,10 @@ class Player {
     manualShipPlacement() {
         const gameFields = document.getElementById('gameFields');
         return new Promise((resolve) => {
+            const manualShipPlacementContainer = document.createElement('div');
+            manualShipPlacementContainer.classList.add(
+                'manualShipPlacementContainer'
+            );
             const axisButton = document.createElement('button');
             axisButton.classList.add('axis-button');
             axisButton.innerHTML = 'Axis: X';
@@ -111,19 +115,18 @@ class Player {
 
             this.sampleGridEventListeners(shipPlacementBoard, resolve);
 
-            gameFields.append(axisButton);
-            gameFields.append(shipPlacementBoard);
+            manualShipPlacementContainer.prepend(shipPlacementBoard);
+            manualShipPlacementContainer.prepend(axisButton);
+            gameFields.prepend(manualShipPlacementContainer);
         });
     }
 
     screenCleanUp() {
-        const shipPlacementBoard = document.querySelector(
-            '.shipPlacementBoard'
+        const manualShipPlacementContainer = document.querySelector(
+            '.manualShipPlacementContainer'
         );
-        const axisButton = document.querySelector('.axis-button');
 
-        shipPlacementBoard.remove();
-        axisButton.remove();
+        manualShipPlacementContainer.remove();
     }
 
     sampleGridEventListeners(grid, resolve) {

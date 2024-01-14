@@ -67,9 +67,6 @@ class GameBoard {
     receiveAttack(xCor, yCor) {
         const cellValue = this.field[xCor][yCor];
 
-        console.log(cellValue);
-        console.log(xCor, yCor);
-
         if (['missed', 'hit'].includes(cellValue)) {
             return false;
         }
