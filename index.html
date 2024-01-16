@@ -8,7 +8,7 @@
     <body>
         <div
             id="mainContainer"
-            class="bg-cyan-700 h-full w-full fixed overflow-auto"
+            class="bg-cyan-700 h-full w-full fixed overflow-auto ml-[50%] translate-x-[-50%] min-w-[368px]"
         >
             <!-- Adding fixed to position:fixed, helped keep elements from shrinking -->
             <div class="m-2 p-2 border border-solid border-red-700">
@@ -19,6 +19,7 @@
                     action=""
                     id="nameInputForm"
                     class="flex flex-col items-center gap-5"
+                    autocomplete="off"
                 >
                     <label for="nameInput" class="text-lg"
                         >State your name commander!</label
@@ -26,6 +27,7 @@
                     <input
                         id="nameInput"
                         type="text"
+                        autofocus
                         class="outline-none px-1 rounded-sm"
                         required
                     />
@@ -64,6 +66,24 @@
             >
                 <div id="playerField" class="mx-auto"></div>
                 <div id="computerField" class="mx-auto"></div>
+            </div>
+
+            <div id="endOfGameContainer" class="hidden">
+                <p id="applauseField" class="text-4xl lg:text-6xl my-10">
+                    Congratulations
+                </p>
+                <div id="scoreBoard">
+                    <p class="text-center">Score Board</p>
+                    <span id="playerScore" class="mr-8"></span>
+                    <span id="computerScore"></span>
+                </div>
+                <div
+                    id="endOfGameOptions"
+                    class="flex flex-col lg:flex-row gap-8 mt-[25%]"
+                >
+                    <button id="playAgainButton">Play Again</button>
+                    <button id="endGameButton">End Game</button>
+                </div>
             </div>
         </div>
     </body>
