@@ -19,7 +19,7 @@ class GameLoop {
             this.player,
             shipPlacementAnswer
         );
-        this.activePlayer = this.player.playerName;
+        this.activePlayer = this.player;
         this.player.targetField = this.computer.computerField();
         this.computer.targetField = this.player.playerField;
     }
@@ -32,6 +32,7 @@ class GameLoop {
 
             GameStatus.boardCheck(this, this.player.opponentBoard);
             if (this.isGameOver) {
+                this.endOfGame();
                 break;
             }
 
@@ -42,6 +43,7 @@ class GameLoop {
 
             GameStatus.boardCheck(this, this.player.playerField);
             if (this.isGameOver) {
+                this.endOfGame();
                 break;
             }
 
@@ -54,9 +56,25 @@ class GameLoop {
 
     switchTurns() {
         this.activePlayer =
-            this.activePlayer === this.player.playerName
-                ? this.computer.playerName
-                : this.player.playerName;
+            this.activePlayer === this.player ? this.computer : this.player;
+    }
+
+    endOfGame() {
+        const gameFields = document.getElementById('gameFields');
+        const endOfGameContainer =
+            document.getElementById('endOfGameContainer');
+        const applauseField = document.getElementById('applauseField');
+        const playerScore = document.getElementById('playerScore');
+        const computerScore = document.getElementById('computerScore');
+        this.activePlayer.score += 1; // Increment the winning player's score
+
+        gameFields.style.display = 'none';
+        endOfGameContainer.style.display = 'flex';
+
+        applauseField.textContent += ` ${this.activePlayer.playerName}`;
+
+        playerScore.textContent += `${this.player.playerName}: ${this.player.score}`;
+        computerScore.textContent += `${this.computer.playerName}: ${this.computer.score}`;
     }
 }
 

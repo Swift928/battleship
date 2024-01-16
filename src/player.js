@@ -8,6 +8,7 @@ class Player {
         this.playerName = name;
         this.playerField = new GameBoard();
         this.opponentBoard = null;
+        this.score = 0;
         this.ships = [
             new Ship(2),
             new Ship(3),

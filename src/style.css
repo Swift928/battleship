@@ -95,6 +95,32 @@
     width: 150px;
 }
 
+#endOfGameContainer {
+    position: absolute;
+    flex-direction: column;
+    font-size: 1.5rem;
+    background-color: inherit;
+    left: 50%;
+    transform: translateX(-50%);
+    min-width: max-content;
+    align-items: center;
+}
+
+div#endOfGameOptions button {
+    background-color: #2875b2;
+    height: 60px;
+    width: 150px;
+    border-radius: 8px;
+    border: 1px solid black;
+}
+
+/* #endOfGameOptions{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-top: 45%;
+} */
+
 @media (max-width: 1084px) {
     #playerField,
     #computerField,
