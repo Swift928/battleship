@@ -1,5 +1,5 @@
 /* eslint-disable arrow-body-style */
-const screenRender = () => {
+const screenRender = (value = null) => {
     return new Promise((resolve) => {
         const formsDiv = document.getElementById('nameInputDiv');
         const nameInput = document.getElementById('nameInput');
@@ -15,7 +15,7 @@ const screenRender = () => {
         );
 
         const state = {
-            playerName: '',
+            playerName: value,
             playerShipPlacement: '',
         };
 

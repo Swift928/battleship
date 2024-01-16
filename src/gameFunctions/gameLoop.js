@@ -75,6 +75,23 @@ class GameLoop {
 
         playerScore.textContent += `${this.player.playerName}: ${this.player.score}`;
         computerScore.textContent += `${this.computer.playerName}: ${this.computer.score}`;
+
+        const playAgainButton = document.querySelector('#playAgainButton');
+        const endGameButton = document.querySelector('#endGameButton');
+
+        playAgainButton.addEventListener('click', async () => {
+            const formsDiv = document.getElementById('nameInputDiv');
+            const shipPlacementDiv = document.getElementById(
+                'shipPlacementChoice'
+            );
+
+            endOfGameContainer.style.display = 'none';
+            formsDiv.classList.remove('hidden');
+            shipPlacementDiv.classList.remove('hidden');
+
+            // const { playerShipPlacement: nextPlacementAnswer } =
+            //     await screenRender(playerName);
+        });
     }
 }
 
