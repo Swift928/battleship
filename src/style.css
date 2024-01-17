@@ -21,17 +21,13 @@
     position: relative;
 }
 
-.used-item {
-    background-color: rgb(128, 128, 128, 0.5);
-}
-
 #computerField:not(.game-over) .grid-item:hover {
     background-color: rgba(54, 206, 54, 0.5);
     cursor: pointer;
 }
 
 #computerField:not(.game-over) .used-item:hover {
-    background-color: rgb(128, 128, 128, 0.5);
+    background-color: transparent;
     cursor: not-allowed;
 }
 
@@ -62,15 +58,23 @@
     height: 50px !important;
 }
 
-.dot {
+.shot-hit,
+.shot-missed {
     position: absolute;
     width: 20px;
     height: 20px;
-    background-color: #ffffffd6;
     border-radius: 50%;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.shot-missed {
+    background-color: #ffffffd6;
+}
+
+.shot-hit {
+    background-color: red;
 }
 
 .good-placement {
@@ -117,13 +121,6 @@ div#endOfGameOptions button {
     border: 1px solid black;
 }
 
-/* #endOfGameOptions{
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-    margin-top: 45%;
-} */
-
 @media (max-width: 1084px) {
     #playerField,
     #computerField,
@@ -131,7 +128,8 @@ div#endOfGameOptions button {
         grid-template-columns: repeat(10, minmax(35px, 35px));
     }
 
-    .dot {
+    .shot-hit,
+    .shot-missed {
         width: 15px;
         height: 15px;
     }

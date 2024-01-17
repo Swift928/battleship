@@ -4,22 +4,19 @@ class Computer {
         // eslint-disable-next-line no-async-promise-executor
         return new Promise(async (resolve) => {
             const { xCor, yCor } = await gameInstance.computer.computerAttack();
+            const index = xCor * 10 + yCor;
 
             const gridElements = Array.from(playerField.children).filter(
                 (item) => !item.classList.contains('overlay')
             );
 
-            const index = xCor * 10 + yCor;
+            const targetElement = gridElements[index];
 
-            const element = gridElements[index];
+            const dot = document.createElement('div');
+            dot.classList.add(`shot-${oppBoard.field[xCor][yCor]}`);
+            targetElement.appendChild(dot);
 
-            if (oppBoard.field[xCor][yCor] === 'hit') {
-                const dot = document.createElement('div');
-                dot.classList.add('dot');
-
-                element.appendChild(dot);
-            }
-            element.classList.add('used-item');
+            targetElement.classList.add('used-item');
             resolve();
         });
     }

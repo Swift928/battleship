@@ -4,25 +4,30 @@ class PlayerMove {
 
         return new Promise((resolve) => {
             const clickHandler = (event) => {
-                if (event.target.classList.contains('used-item')) {
+                const { target } = event;
+
+                if (target.classList.contains('used-item')) {
+                    return;
                     // Does nothing for the items already containing 'used-item'
-                } else if (event.target.classList.contains('grid-item')) {
-                    const index = Array.from(event.target.parentNode.children)
+                }
+
+                if (event.target.classList.contains('grid-item')) {
+                    const index = Array.from(target.parentNode.children)
                         .filter((item) => !item.classList.contains('overlay'))
-                        .indexOf(event.target);
+                        .indexOf(target);
 
                     const rowIndex = Math.floor(index / 10);
                     const colIndex = index % 10;
 
                     oppBoard.receiveAttack(rowIndex, colIndex);
 
-                    if (oppBoard.field[rowIndex][colIndex] === 'hit') {
-                        const dot = document.createElement('div');
-                        dot.classList.add('dot');
-                        event.target.appendChild(dot);
-                    }
+                    const dot = document.createElement('div');
+                    dot.classList.add(
+                        `shot-${oppBoard.field[rowIndex][colIndex]}`
+                    );
+                    target.appendChild(dot);
 
-                    event.target.classList.add('used-item');
+                    target.classList.add('used-item');
                     computerField.removeEventListener('click', clickHandler);
                     resolve();
                 }
