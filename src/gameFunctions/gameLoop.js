@@ -4,6 +4,7 @@ const { inputHandler } = require('./inputHandler');
 const { PlayerMove } = require('./playerMove');
 const { GameStatus } = require('./gameStatus');
 const { Computer: ComputerMove } = require('./computerMove');
+const { GameBoard } = require('../gameBoard');
 
 class GameLoop {
     constructor() {
@@ -14,7 +15,7 @@ class GameLoop {
     }
 
     async setPlayer(value, shipPlacementAnswer) {
-        this.player = new Player(value);
+        if (!this.player) this.player = new Player(value);
         this.player.playerField.field = await inputHandler.setPlayerBoard(
             this.player,
             shipPlacementAnswer
@@ -51,7 +52,7 @@ class GameLoop {
             computerField.style.pointerEvents = 'auto';
         }
 
-        return console.log(`${this.activePlayer} You Win!`);
+        return console.log(`${this.activePlayer.playerName} You Win!`);
     }
 
     switchTurns() {
@@ -67,31 +68,23 @@ class GameLoop {
         const playerScore = document.getElementById('playerScore');
         const computerScore = document.getElementById('computerScore');
         this.activePlayer.score += 1; // Increment the winning player's score
+        this.player.playerField = new GameBoard();
+        this.computer = new Computer();
 
-        gameFields.style.display = 'none';
-        endOfGameContainer.style.display = 'flex';
+        gameFields.classList.toggle('hidden');
+        endOfGameContainer.classList.toggle('hidden');
 
-        applauseField.textContent += ` ${this.activePlayer.playerName}`;
+        applauseField.textContent = `Congratulations ${this.activePlayer.playerName}`;
 
-        playerScore.textContent += `${this.player.playerName}: ${this.player.score}`;
-        computerScore.textContent += `${this.computer.playerName}: ${this.computer.score}`;
+        playerScore.textContent = `${this.player.playerName}: ${this.player.score}`;
+        computerScore.textContent = `${this.computer.playerName}: ${this.computer.score}`;
+    }
 
-        const playAgainButton = document.querySelector('#playAgainButton');
-        const endGameButton = document.querySelector('#endGameButton');
-
-        playAgainButton.addEventListener('click', async () => {
-            const formsDiv = document.getElementById('nameInputDiv');
-            const shipPlacementDiv = document.getElementById(
-                'shipPlacementChoice'
-            );
-
-            endOfGameContainer.style.display = 'none';
-            formsDiv.classList.remove('hidden');
-            shipPlacementDiv.classList.remove('hidden');
-
-            // const { playerShipPlacement: nextPlacementAnswer } =
-            //     await screenRender(playerName);
-        });
+    resetGame() {
+        this.player.refreshState();
+        this.computer.refreshComputer();
+        this.isGameOver = false;
+        GameStatus.newGame();
     }
 }
 

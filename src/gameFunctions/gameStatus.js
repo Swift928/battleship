@@ -5,7 +5,6 @@ class GameStatus {
         const computerField = document.getElementById('computerField');
 
         computerField.classList.add('game-over');
-        computerField.style.pointerEvents = 'none';
     }
 
     static boardCheck(gameInstance, opponent) {
@@ -18,6 +17,12 @@ class GameStatus {
             // eslint-disable-next-line no-param-reassign
             gameInstance.isGameOver = true;
         }
+    }
+
+    static newGame() {
+        const computerField = document.getElementById('computerField');
+
+        computerField.classList.remove('game-over');
     }
 }
 

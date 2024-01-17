@@ -21,19 +21,22 @@
     position: relative;
 }
 
+.used-item {
+    background-color: rgb(128, 128, 128, 0.5);
+}
+
 #computerField:not(.game-over) .grid-item:hover {
     background-color: rgba(54, 206, 54, 0.5);
     cursor: pointer;
 }
 
-#computerField .used-item,
-#playerField .used-item {
-    background-color: rgb(128, 128, 128, 0.5);
-}
-
 #computerField:not(.game-over) .used-item:hover {
     background-color: rgb(128, 128, 128, 0.5);
     cursor: not-allowed;
+}
+
+.game-over {
+    pointer-events: none;
 }
 
 .overlay {

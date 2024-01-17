@@ -7,6 +7,11 @@ class Computer extends Player {
         this.playerName = 'Computer';
     }
 
+    refreshComputer() {
+        this.refreshState();
+        this.playerField = this.randomPlaceShip();
+    }
+
     computerField = () => this.playerField;
 
     async computerAttack() {

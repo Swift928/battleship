@@ -22,6 +22,17 @@ class Player {
         this.opponentBoard = board;
     }
 
+    refreshState() {
+        this.playerField = new GameBoard();
+        this.ships = [
+            new Ship(2),
+            new Ship(3),
+            new Ship(3),
+            new Ship(4),
+            new Ship(5),
+        ];
+    }
+
     async getUserInput() {
         return new Promise((resolve) => {
             setTimeout(() => {
