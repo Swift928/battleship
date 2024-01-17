@@ -37,11 +37,18 @@ const screenRender = (value = null) => {
         };
 
         const handleNameInput = () => {
-            if (!nameInput.value.trim()) return;
-            nameInputForm.classList.toggle('hidden');
-            shipPlacementDiv.classList.toggle('hidden');
-            state.playerName = capitalizedWords(nameInput.value);
-            shipPlacementMessage(state.playerName);
+            const trimmedValue = nameInput.value.trim();
+
+            if (trimmedValue) {
+                nameInput.setCustomValidity('');
+                nameInputForm.classList.toggle('hidden');
+                shipPlacementDiv.classList.toggle('hidden');
+                state.playerName = capitalizedWords(nameInput.value);
+                shipPlacementMessage(state.playerName);
+            } else {
+                nameInput.setCustomValidity('Please enter a name.');
+                nameInput.reportValidity();
+            }
         };
 
         const handleNameInputEvent = (event) => {
@@ -49,8 +56,8 @@ const screenRender = (value = null) => {
                 event.type === 'click' ||
                 (event.type === 'keypress' && event.key === 'Enter')
             ) {
-                event.preventDefault();
                 handleNameInput();
+                event.preventDefault();
             }
         };
 
