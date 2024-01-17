@@ -2,9 +2,7 @@ const { Ship } = require('../ships');
 
 class GameStatus {
     static endGame() {
-        const computerField = document.getElementById('computerField');
-
-        computerField.classList.add('game-over');
+        document.getElementById('computerField').classList.add('game-over');
     }
 
     static boardCheck(gameInstance, opponent) {
@@ -20,9 +18,7 @@ class GameStatus {
     }
 
     static newGame() {
-        const computerField = document.getElementById('computerField');
-
-        computerField.classList.remove('game-over');
+        document.getElementById('computerField').classList.remove('game-over');
     }
 }
 
