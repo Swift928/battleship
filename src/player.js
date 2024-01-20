@@ -9,13 +9,7 @@ class Player {
         this.playerField = new GameBoard();
         this.opponentBoard = null;
         this.score = 0;
-        this.ships = [
-            new Ship(2),
-            new Ship(3),
-            new Ship(3),
-            new Ship(4),
-            new Ship(5),
-        ];
+        this.ships = [2, 3, 3, 4, 5].map((length) => new Ship(length));
     }
 
     set targetField(board) {
@@ -24,76 +18,55 @@ class Player {
 
     refreshState() {
         this.playerField = new GameBoard();
-        this.ships = [
-            new Ship(2),
-            new Ship(3),
-            new Ship(3),
-            new Ship(4),
-            new Ship(5),
-        ];
+        this.ships = [2, 3, 3, 4, 5].map((length) => new Ship(length));
     }
 
     async getUserInput() {
         return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(
-                    prompt(
-                        'Enter coordinates for the next ship (e.g., xCor yCor): '
-                    )
-                );
-            }, 0);
+            resolve(
+                prompt(
+                    'Enter coordinates for the next ship (e.g., xCor yCor): '
+                )
+            );
         });
     }
 
     hoverPlacement(element) {
         const { x, y } = element.dataset;
-        let targetX = parseInt(x);
-        let targetY = parseInt(y);
-        const { length: shipLength } = this.ships[this.ships.length - 1];
+        let targetX = parseInt(x, 10);
+        let targetY = parseInt(y, 10);
+        const { length: shipLength, axis } = this.ships[this.ships.length - 1];
 
-        if (
-            !this.playerField.isSpaceAvailable(
-                targetX,
-                targetY,
-                this.ships[this.ships.length - 1],
-                this.ships[this.ships.length - 1].axis
-            )
-        ) {
-            element.classList.add('bad-placement');
-            return;
-        }
+        const isSpaceAvailable = this.playerField.isSpaceAvailable(
+            targetX,
+            targetY,
+            this.ships[this.ships.length - 1],
+            axis
+        );
 
-        if (!this.ships[this.ships.length - 1].axis) {
-            for (let i = 0; i < shipLength; i++) {
-                const nextItem = document.querySelector(
-                    `.shipPlacementBoard .grid-item[data-x='${targetX}'][data-y='${
-                        targetY + i
-                    }']`
-                );
+        element.classList.add(
+            isSpaceAvailable ? 'good-placement' : 'bad-placement'
+        );
 
-                nextItem.classList.add('good-placement');
-            }
-        } else {
-            for (let i = 0; i < shipLength; i++) {
-                const nextItem = document.querySelector(
-                    `.shipPlacementBoard .grid-item[data-x='${
-                        targetX + i
-                    }'][data-y='${targetY}']`
-                );
+        if (!isSpaceAvailable) return;
 
-                nextItem.classList.add('good-placement');
-            }
+        const iterate = () => (axis ? targetX++ : targetY++);
+
+        for (let i = 0; i < shipLength; i++) {
+            const nextItem = document.querySelector(
+                `.shipPlacementBoard .grid-item[data-x='${targetX}'][data-y='${targetY}']`
+            );
+            iterate();
+            nextItem.classList.add('good-placement');
         }
     }
 
     hoverPlacementRemove() {
-        const hoveredItems = document.querySelectorAll(
-            '.good-placement, .bad-placement'
-        );
-
-        hoveredItems.forEach((element) => {
-            element.classList.remove('good-placement', 'bad-placement');
-        });
+        document
+            .querySelectorAll('.good-placement, .bad-placement')
+            .forEach((element) => {
+                element.classList.remove('good-placement', 'bad-placement');
+            });
     }
 
     manualShipPlacement() {
@@ -112,8 +85,7 @@ class Player {
                     axisButton.innerHTML === 'Axis: X' ? 'Axis: Y' : 'Axis: X';
 
                 const currentShip = this.ships[this.ships.length - 1];
-                currentShip.axis =
-                    axisButton.innerHTML === 'Axis: Y' ? true : null;
+                currentShip.axis = axisButton.innerHTML === 'Axis: Y';
             });
 
             const shipPlacementBoard = document.createElement('div');
@@ -127,18 +99,17 @@ class Player {
 
             this.sampleGridEventListeners(shipPlacementBoard, resolve);
 
-            manualShipPlacementContainer.prepend(shipPlacementBoard);
-            manualShipPlacementContainer.prepend(axisButton);
+            manualShipPlacementContainer.prepend(
+                axisButton,
+                shipPlacementBoard
+            );
+
             gameFields.prepend(manualShipPlacementContainer);
         });
     }
 
     screenCleanUp() {
-        const manualShipPlacementContainer = document.querySelector(
-            '.manualShipPlacementContainer'
-        );
-
-        manualShipPlacementContainer.remove();
+        document.querySelector('.manualShipPlacementContainer').remove();
     }
 
     sampleGridEventListeners(grid, resolve) {
@@ -159,10 +130,12 @@ class Player {
                     )
                 )
                     return;
+
                 this.ships.pop();
                 this.hoverPlacementRemove(gridItem);
                 grid.innerHTML = '';
                 FieldCreation.renderBoard(grid, this.playerField.field);
+
                 if (this.ships.length === 0) {
                     this.screenCleanUp();
                     resolve();

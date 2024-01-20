@@ -27,70 +27,35 @@ class FieldCreation {
                 shipImage.alt = 'Ship';
 
                 const adjustLayout = () => {
-                    if (window.innerWidth >= 1084) {
-                        shipImage.style.height = `${40}px`;
-                        knownVessel.container.appendChild(shipImage);
+                    const { axis, length } = ship;
+                    const sizeMultiplier = window.innerWidth >= 1084 ? 50 : 35;
+                    const height = window.innerWidth >= 1084 ? 40 : 25;
+                    const offset = window.innerWidth >= 1084 ? 25 : 17;
+                    const adjustments = {
+                        2: [0, -29],
+                        3: [15.5, -3.5],
+                        4: [10.5, -7],
+                        5: [16.5, 0],
+                    };
 
-                        if (!ship.axis) {
-                            knownVessel.container.style.top = `${
-                                i * 50 + 5 + (i > 0 ? i * 2 : 0)
-                            }px `;
-                            knownVessel.container.style.left = `${
-                                j * 50 +
-                                (j > 0 ? 2 * j : 0) +
-                                (ship.length === 3 ? 15.5 : 0) +
-                                (ship.length === 4 ? 10.5 : 0) +
-                                (ship.length === 5 ? 16.5 : 0)
-                            }px`;
-                        } else if (ship.axis) {
-                            knownVessel.container.style.top = `${
-                                i * 50 +
-                                (i > 0 ? i * 2 : 0) +
-                                (ship.length === 3 ? -3.5 : 0) +
-                                (ship.length === 2 ? -25 : 0) +
-                                (ship.length === 4 ? -7 : 0)
-                            }px `;
-                            knownVessel.container.style.left = `${
-                                j * 50 + 25 + (j > 0 ? j * 2 : 0)
-                            }px `;
-                        }
-                        knownVessel.container.style.width = ship.axis
-                            ? `${ship.length * 50}px`
-                            : '';
-                    } else {
-                        shipImage.style.height = `${25}px`;
-                        knownVessel.container.appendChild(shipImage);
+                    shipImage.style.height = `${height}px`;
+                    knownVessel.container.appendChild(shipImage);
 
-                        if (!ship.axis) {
-                            knownVessel.container.style.top = `${
-                                i * 35 +
-                                5 +
-                                (i > 0 ? i * 2 : 0) +
-                                (ship.length === 2 ? -5 : 0)
-                            }px `;
-                            knownVessel.container.style.left = `${
-                                j * 35 +
-                                (j > 0 ? 2 * j : 0) +
-                                (ship.length === 3 ? 15.5 : 0) +
-                                (ship.length === 4 ? 10.5 : 0) +
-                                (ship.length === 5 ? 16.5 : 0)
-                            }px`;
-                        } else if (ship.axis) {
-                            knownVessel.container.style.top = `${
-                                i * 35 +
-                                (i > 0 ? i * 2 : 0) +
-                                (ship.length === 3 ? -3.5 : 0) +
-                                (ship.length === 2 ? -17 : 0) +
-                                (ship.length === 4 ? -7 : 0)
-                            }px `;
-                            knownVessel.container.style.left = `${
-                                j * 35 + 17 + (j > 0 ? j * 2 : 0)
-                            }px `;
-                        }
-                        knownVessel.container.style.width = ship.axis
-                            ? `${ship.length * 35}px`
-                            : '';
-                    }
+                    knownVessel.container.style.top = `${
+                        i * sizeMultiplier +
+                        5 +
+                        (i > 0 ? i * 2 : 0) +
+                        (axis ? adjustments[length][1] : 0)
+                    }px `;
+                    knownVessel.container.style.left = `${
+                        j * sizeMultiplier +
+                        (j > 0 ? j * 2 : 0) +
+                        (axis ? offset : 0) +
+                        (!axis ? adjustments[length][0] : length === 2 ? -5 : 0)
+                    }px`;
+                    knownVessel.container.style.width = axis
+                        ? `${length * sizeMultiplier}px`
+                        : '';
                 };
 
                 adjustLayout();
