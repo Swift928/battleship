@@ -23,14 +23,13 @@ class FieldCreation {
                 knownVessel.container.classList.add('overlay');
 
                 const { shipImage } = ship;
-
                 shipImage.alt = 'Ship';
 
                 const adjustLayout = () => {
                     const { axis, length } = ship;
-                    const sizeMultiplier = window.innerWidth >= 1084 ? 50 : 35;
-                    const height = window.innerWidth >= 1084 ? 40 : 25;
-                    const offset = window.innerWidth >= 1084 ? 25 : 17;
+                    const [sizeMultiplier, height, offset] =
+                        window.innerWidth >= 1084 ? [50, 40, 25] : [35, 25, 17];
+
                     const adjustments = {
                         2: [0, -29],
                         3: [15.5, -3.5],
@@ -45,13 +44,19 @@ class FieldCreation {
                         i * sizeMultiplier +
                         5 +
                         (i > 0 ? i * 2 : 0) +
-                        (axis ? adjustments[length][1] : 0)
+                        (axis ? adjustments[length][1] : 0) +
+                        (sizeMultiplier === 35 && !axis && length === 2
+                            ? -3
+                            : 0) +
+                        (sizeMultiplier === 35 && axis && length === 2 ? 7 : 0)
                     }px `;
                     knownVessel.container.style.left = `${
                         j * sizeMultiplier +
                         (j > 0 ? j * 2 : 0) +
                         (axis ? offset : 0) +
-                        (!axis ? adjustments[length][0] : length === 2 ? -5 : 0)
+                        (!axis ? adjustments[length][0] : 0) +
+                        (axis && length === 2 ? -5 : 0) +
+                        (sizeMultiplier === 35 && axis && length === 2 ? 3 : 0)
                     }px`;
                     knownVessel.container.style.width = axis
                         ? `${length * sizeMultiplier}px`
