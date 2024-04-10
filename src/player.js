@@ -12,6 +12,7 @@ class Player {
         this.score = 0;
         this.ships = [2, 3, 3, 4, 5].map((length) => new Ship(length));
         this.shipAxis = null;
+        this.selectedShipIndex = -1;
     }
 
     set targetField(board) {
@@ -34,15 +35,17 @@ class Player {
     }
 
     hoverPlacement(element) {
+        if (this.selectedShipIndex === -1) return;
+        console.log(this.selectedShipIndex);
         const { x, y } = element.dataset;
         let targetX = parseInt(x, 10);
         let targetY = parseInt(y, 10);
-        const { length: shipLength } = this.ships[this.ships.length - 1];
+        const { length: shipLength } = this.ships[this.selectedShipIndex];
 
         const isSpaceAvailable = this.playerField.isSpaceAvailable(
             targetX,
             targetY,
-            this.ships[this.ships.length - 1],
+            this.ships[this.selectedShipIndex],
             this.shipAxis
         );
 
@@ -71,6 +74,29 @@ class Player {
             });
     }
 
+    updateShipsContainer() {
+        const div = document.querySelector('.practice');
+        div.innerHTML = '';
+
+        this.ships.forEach((ship, index) => {
+            const { shipImage } = ship;
+            shipImage.classList.add('manualShipPlaceholders');
+
+            shipImage.addEventListener('click', () => {
+                this.selectedShipIndex = -1;
+                document
+                    .querySelectorAll('.manualShipPlaceholders')
+                    .forEach((ship) => ship.classList.remove('selected'));
+
+                shipImage.classList.add('selected');
+
+                this.selectedShipIndex = index;
+            });
+
+            div.append(shipImage);
+        });
+    }
+
     manualShipPlacement() {
         const gameFields = document.getElementById('gameFields');
         return new Promise((resolve) => {
@@ -89,9 +115,36 @@ class Player {
                 this.shipAxis = axisButton.innerHTML === 'Axis: Y';
             });
 
+            const container = document.createElement('div');
+            container.classList.add('boardAndDragShips');
+
             const shipPlacementBoard = document.createElement('div');
             shipPlacementBoard.classList.add('shipPlacementBoard');
             shipPlacementBoard.style.display = 'grid';
+            container.prepend(shipPlacementBoard);
+
+            const shipsContainer = document.createElement('div');
+            shipsContainer.classList.add('practice');
+
+            this.ships.forEach((ship, index) => {
+                const { shipImage } = ship;
+                shipImage.classList.add('manualShipPlaceholders');
+
+                shipImage.addEventListener('click', () => {
+                    this.selectedShipIndex = -1;
+                    document
+                        .querySelectorAll('.manualShipPlaceholders')
+                        .forEach((ship) => ship.classList.remove('selected'));
+
+                    shipImage.classList.add('selected');
+
+                    this.selectedShipIndex = index;
+                });
+
+                shipsContainer.append(shipImage);
+            });
+
+            container.append(shipsContainer);
 
             FieldCreation.renderBoard(
                 shipPlacementBoard,
@@ -100,17 +153,15 @@ class Player {
 
             this.sampleGridEventListeners(shipPlacementBoard, resolve);
 
-            manualShipPlacementContainer.prepend(
-                axisButton,
-                shipPlacementBoard
-            );
-
+            manualShipPlacementContainer.prepend(axisButton, container);
+            gameFields.classList.toggle('hidden');
             gameFields.prepend(manualShipPlacementContainer);
         });
     }
 
     static screenCleanUp() {
         document.querySelector('.manualShipPlacementContainer').remove();
+        document.getElementById('gameFields').classList.toggle('hidden');
     }
 
     sampleGridEventListeners(grid, resolve) {
@@ -122,17 +173,21 @@ class Player {
                 Player.hoverPlacementRemove(gridItem)
             );
             gridItem.addEventListener('click', () => {
+                if (this.selectedShipIndex === -1) return;
+
                 if (
                     !this.playerField.placeShip(
                         parseInt(gridItem.dataset.x, 10),
                         parseInt(gridItem.dataset.y, 10),
-                        this.ships[this.ships.length - 1],
+                        this.ships[this.selectedShipIndex],
                         this.shipAxis
                     )
                 )
                     return;
 
-                this.ships.pop();
+                this.ships.splice(this.selectedShipIndex, 1);
+                this.updateShipsContainer();
+                this.selectedShipIndex = -1;
                 Player.hoverPlacementRemove(gridItem);
                 grid.innerHTML = '';
                 FieldCreation.renderBoard(grid, this.playerField.field);

@@ -39,6 +39,11 @@ class GameStatus {
 
     static newGame() {
         document.getElementById('computerField').classList.remove('game-over');
+
+        document.querySelectorAll('.shipsRemaining').forEach((element) => {
+            // eslint-disable-next-line no-param-reassign
+            element.innerHTML = 5;
+        });
     }
 }
 

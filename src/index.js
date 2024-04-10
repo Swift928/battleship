@@ -2,7 +2,6 @@ import './style.css';
 import screenRender from './screenRender';
 
 const { FieldCreation } = require('./gameFields/fieldCreation');
-
 const { GameLoop } = require('./gameFunctions/gameLoop');
 
 (async () => {
@@ -29,12 +28,12 @@ const { GameLoop } = require('./gameFunctions/gameLoop');
 
         state = await screenRender(state?.playerName);
 
+        await game.setPlayer(state.playerName, state.playerShipPlacement);
+
         gameFields.classList.remove('hidden');
         [playerFieldElement, computerFieldElement].forEach(
             (el) => (el.style.display = 'grid')
         );
-
-        await game.setPlayer(state.playerName, state.playerShipPlacement);
 
         renderBoard();
 

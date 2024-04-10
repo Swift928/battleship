@@ -91,7 +91,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 3rem;
+    gap: 1.5rem;
     width: 100%;
 }
 
@@ -119,6 +119,39 @@ div#endOfGameOptions button {
     width: 150px;
     border-radius: 8px;
     border: 1px solid black;
+}
+
+.boardAndDragShips {
+    display: flex;
+    position: relative;
+}
+
+.practice {
+    position: absolute;
+    left: 368px;
+    text-wrap: nowrap;
+    /* padding: 40% 0; */
+    /* transform: translateX(50%); */
+    width: 50%;
+    height: 100%;
+    border: 2px red dashed;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.practice * {
+    margin: 0.5rem;
+}
+
+.manualShipPlaceholders {
+    scale: 0.9;
+    cursor: pointer;
+}
+.manualShipPlaceholders.selected {
+    scale: 1;
 }
 
 @media (max-width: 1084px) {
@@ -156,3 +189,9 @@ div#endOfGameOptions button {
         height: 35px !important;
     }
 }
+
+/* @media (min-width: 1084px) {
+    .practice {
+        left: 518px;
+    }
+} */
