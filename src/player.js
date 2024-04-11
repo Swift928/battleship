@@ -198,6 +198,7 @@ class Player {
 
                 if (this.ships.length === 0) {
                     Player.screenCleanUp();
+                    this.shipAxis = null;
                     resolve();
                 } else {
                     this.sampleGridEventListeners(grid, resolve);
