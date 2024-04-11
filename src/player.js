@@ -36,7 +36,6 @@ class Player {
 
     hoverPlacement(element) {
         if (this.selectedShipIndex === -1) return;
-        console.log(this.selectedShipIndex);
         const { x, y } = element.dataset;
         let targetX = parseInt(x, 10);
         let targetY = parseInt(y, 10);
@@ -49,11 +48,11 @@ class Player {
             this.shipAxis
         );
 
+        const elementStatus = isSpaceAvailable ? 1 : null;
+
         element.classList.add(
             isSpaceAvailable ? 'good-placement' : 'bad-placement'
         );
-
-        if (!isSpaceAvailable) return;
 
         const iterate = () => (this.shipAxis ? targetX++ : targetY++);
 
@@ -61,8 +60,13 @@ class Player {
             const nextItem = document.querySelector(
                 `.shipPlacementBoard .grid-item[data-x='${targetX}'][data-y='${targetY}']`
             );
+
             iterate();
-            nextItem.classList.add('good-placement');
+            if (!nextItem) break;
+
+            if (elementStatus) {
+                nextItem.classList.add('good-placement');
+            } else nextItem.classList.add('bad-placement');
         }
     }
 

@@ -128,10 +128,8 @@ div#endOfGameOptions button {
 
 .practice {
     position: absolute;
-    left: 368px;
+    left: 518px;
     text-wrap: nowrap;
-    /* padding: 40% 0; */
-    /* transform: translateX(50%); */
     width: 50%;
     height: 100%;
     border: 2px red dashed;
@@ -188,10 +186,8 @@ div#endOfGameOptions button {
         width: 70px;
         height: 35px !important;
     }
-}
 
-/* @media (min-width: 1084px) {
     .practice {
-        left: 518px;
+        left: 368px;
     }
-} */
+}

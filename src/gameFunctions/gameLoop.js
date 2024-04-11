@@ -72,6 +72,9 @@ class GameLoop {
         this.computer = new Computer();
 
         gameFields.classList.toggle('hidden');
+        gameFields
+            .querySelectorAll('*')
+            .forEach((element) => element.classList.add('hidden'));
         endOfGameContainer.classList.toggle('hidden');
 
         applauseField.textContent = `Congratulations ${this.activePlayer.playerName}`;

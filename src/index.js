@@ -34,6 +34,9 @@ const { GameLoop } = require('./gameFunctions/gameLoop');
         [playerFieldElement, computerFieldElement].forEach(
             (el) => (el.style.display = 'grid')
         );
+        gameFields
+            .querySelectorAll('*')
+            .forEach((element) => element.classList.remove('hidden'));
 
         renderBoard();
 
