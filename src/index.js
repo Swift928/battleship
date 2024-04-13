@@ -11,7 +11,7 @@ const { GameLoop } = require('./gameFunctions/gameLoop');
     const computerFieldElement = document.getElementById('computerField');
     const gameFields = document.getElementById('gameFields');
     const endOfGameContainer = document.getElementById('endOfGameContainer');
-    const formsDiv = document.getElementById('nameInputDiv');
+    // const formsDiv = document.getElementById('nameInputDiv');
     const playAgainButton = document.querySelector('#playAgainButton');
     const endGameButton = document.querySelector('#endGameButton');
 
@@ -26,9 +26,9 @@ const { GameLoop } = require('./gameFunctions/gameLoop');
     const startGame = async () => {
         if (!game) game = new GameLoop();
 
-        state = await screenRender(state?.playerName);
+        if (!state) state = await screenRender(state?.playerName);
 
-        await game.setPlayer(state.playerName, state.playerShipPlacement);
+        await game.setPlayer(state.playerName);
 
         gameFields.classList.remove('hidden');
         [playerFieldElement, computerFieldElement].forEach(
@@ -46,9 +46,7 @@ const { GameLoop } = require('./gameFunctions/gameLoop');
     startGame();
 
     playAgainButton.addEventListener('click', async () => {
-        [endOfGameContainer, formsDiv].forEach((el) =>
-            el.classList.toggle('hidden')
-        );
+        [endOfGameContainer].forEach((el) => el.classList.toggle('hidden'));
 
         game.resetGame();
 

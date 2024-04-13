@@ -80,6 +80,7 @@ class Player {
 
     updateShipsContainer() {
         const div = document.querySelector('.practice');
+        const button = document.querySelector('.refreshButton');
         div.innerHTML = '';
 
         this.ships.forEach((ship, index) => {
@@ -99,6 +100,7 @@ class Player {
 
             div.append(shipImage);
         });
+        div.append(button);
     }
 
     manualShipPlacement() {
@@ -120,7 +122,7 @@ class Player {
             });
 
             const container = document.createElement('div');
-            container.classList.add('boardAndDragShips');
+            container.classList.add('manualShipPlacementBoard');
 
             const shipPlacementBoard = document.createElement('div');
             shipPlacementBoard.classList.add('shipPlacementBoard');
@@ -148,6 +150,11 @@ class Player {
                 shipsContainer.append(shipImage);
             });
 
+            const refreshButton = document.createElement('button');
+            refreshButton.classList.add('refreshButton');
+            refreshButton.innerHTML = 'REFRESH';
+            shipsContainer.append(refreshButton);
+
             container.append(shipsContainer);
 
             FieldCreation.renderBoard(
@@ -155,17 +162,34 @@ class Player {
                 this.playerField.field
             );
 
-            this.sampleGridEventListeners(shipPlacementBoard, resolve);
-
             manualShipPlacementContainer.prepend(axisButton, container);
             gameFields.classList.toggle('hidden');
             gameFields.prepend(manualShipPlacementContainer);
+
+            this.refreshButton();
+
+            this.sampleGridEventListeners(shipPlacementBoard, resolve);
         });
     }
 
     static screenCleanUp() {
         document.querySelector('.manualShipPlacementContainer').remove();
-        document.getElementById('gameFields').classList.toggle('hidden');
+    }
+
+    refreshButton() {
+        const button = document.querySelector('.refreshButton');
+        button.addEventListener('click', () => {
+            this.refreshState();
+
+            const manualPlacementBoard = document.querySelector(
+                '.shipPlacementBoard'
+            );
+            const shipsOnBoard = Array.from(
+                manualPlacementBoard.children
+            ).filter((child) => !child.classList.contains('grid-item'));
+            shipsOnBoard.forEach((child) => child.remove());
+            this.updateShipsContainer();
+        });
     }
 
     sampleGridEventListeners(grid, resolve) {
@@ -197,7 +221,9 @@ class Player {
                 FieldCreation.renderBoard(grid, this.playerField.field);
 
                 if (this.ships.length === 0) {
-                    Player.screenCleanUp();
+                    document
+                        .querySelector('.manualShipPlacementContainer')
+                        .remove();
                     this.shipAxis = null;
                     resolve();
                 } else {

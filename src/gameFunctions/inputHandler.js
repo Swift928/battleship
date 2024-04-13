@@ -7,24 +7,8 @@ class inputHandler {
         );
     }
 
-    static async setPlayerBoard(player, value = null) {
-        // eslint-disable-next-line no-constant-condition
-        while (true) {
-            const userInput =
-                value ||
-                (await inputHandler.getUserBoardInput(player.playerName))
-                    .toLowerCase()
-                    .trim();
-
-            if (userInput === 'yes') {
-                await player.manualShipPlacement();
-                break;
-            } else if (userInput === 'no') {
-                player.randomPlaceShip();
-                break;
-            }
-            console.log('Invalid input. Please type "Yes" or "No". \n');
-        }
+    static async setPlayerBoard(player) {
+        await player.manualShipPlacement();
         return player.playerField.field;
     }
 }

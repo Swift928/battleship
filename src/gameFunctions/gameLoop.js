@@ -14,11 +14,10 @@ class GameLoop {
         this.activePlayer = null;
     }
 
-    async setPlayer(value, shipPlacementAnswer) {
+    async setPlayer(value) {
         if (!this.player) this.player = new Player(value);
         this.player.playerField.field = await inputHandler.setPlayerBoard(
-            this.player,
-            shipPlacementAnswer
+            this.player
         );
         this.activePlayer = this.player;
         this.player.targetField = this.computer.computerField();

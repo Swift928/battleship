@@ -121,7 +121,7 @@ div#endOfGameOptions button {
     border: 1px solid black;
 }
 
-.boardAndDragShips {
+.manualShipPlacementBoard {
     display: flex;
     position: relative;
 }
@@ -150,6 +150,14 @@ div#endOfGameOptions button {
 }
 .manualShipPlaceholders.selected {
     scale: 1;
+}
+
+button.refreshButton {
+    margin-top: auto;
+    border: 2px solid black;
+    padding: 8px 15px;
+    border-radius: 45%;
+    font-size: 20px;
 }
 
 @media (max-width: 1084px) {
