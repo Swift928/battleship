@@ -80,7 +80,7 @@ class Player {
 
     updateShipsContainer() {
         const div = document.querySelector('.practice');
-        const button = document.querySelector('.refreshButton');
+        // const button = document.querySelector('.refreshButton');
         div.innerHTML = '';
 
         this.ships.forEach((ship, index) => {
@@ -100,7 +100,13 @@ class Player {
 
             div.append(shipImage);
         });
-        div.append(button);
+        // div.append(button);
+    }
+
+    updateShipsContainerOnClick() {
+        const div = document.querySelector('.practice');
+        const select = Array.from(div.children)[this.selectedShipIndex];
+        select.remove();
     }
 
     manualShipPlacement() {
@@ -153,7 +159,7 @@ class Player {
             const refreshButton = document.createElement('button');
             refreshButton.classList.add('refreshButton');
             refreshButton.innerHTML = 'REFRESH';
-            shipsContainer.append(refreshButton);
+            container.append(refreshButton);
 
             container.append(shipsContainer);
 
@@ -214,6 +220,7 @@ class Player {
                     return;
 
                 this.ships.splice(this.selectedShipIndex, 1);
+                this.updateShipsContainerOnClick();
                 this.updateShipsContainer();
                 this.selectedShipIndex = -1;
                 Player.hoverPlacementRemove(gridItem);
