@@ -118,13 +118,23 @@ class Player {
             );
             const axisButton = document.createElement('button');
             axisButton.classList.add('axis-button');
-            axisButton.innerHTML = 'Axis: X';
+
+            const horizontalSrc = '/src/images/pan-horizontal.svg';
+            const verticalSrc = '/src/images/pan-vertical.svg';
+
+            const div = document.createElement('img');
+            div.classList.add('axisButtonSVG');
+
+            div.src = horizontalSrc;
+
+            axisButton.innerHTML = 'Axis: ';
+
+            axisButton.append(div);
 
             axisButton.addEventListener('click', () => {
-                axisButton.innerHTML =
-                    axisButton.innerHTML === 'Axis: X' ? 'Axis: Y' : 'Axis: X';
+                this.shipAxis = this.shipAxis === null ? true : null;
 
-                this.shipAxis = axisButton.innerHTML === 'Axis: Y';
+                div.src = this.shipAxis === null ? horizontalSrc : verticalSrc;
             });
 
             const container = document.createElement('div');

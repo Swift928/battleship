@@ -188,6 +188,11 @@ img.length5Ship.manualShipPlaceholders {
     grid-row: 2;
 }
 
+.axisButtonSVG {
+    height: 75%;
+    display: inline;
+}
+
 @media (max-width: 1084px) {
     #playerField,
     #computerField,
