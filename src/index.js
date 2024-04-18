@@ -11,7 +11,6 @@ const { GameLoop } = require('./gameFunctions/gameLoop');
     const computerFieldElement = document.getElementById('computerField');
     const gameFields = document.getElementById('gameFields');
     const endOfGameContainer = document.getElementById('endOfGameContainer');
-    // const formsDiv = document.getElementById('nameInputDiv');
     const playAgainButton = document.querySelector('#playAgainButton');
     const endGameButton = document.querySelector('#endGameButton');
 

@@ -80,7 +80,6 @@ class Player {
 
     updateShipsContainer() {
         const div = document.querySelector('.practice');
-        // const button = document.querySelector('.refreshButton');
         div.innerHTML = '';
 
         this.ships.forEach((ship, index) => {
@@ -100,7 +99,6 @@ class Player {
 
             div.append(shipImage);
         });
-        // div.append(button);
     }
 
     updateShipsContainerOnClick() {
@@ -210,9 +208,7 @@ class Player {
             document.querySelector('.practice').innerHTML = '';
 
             board.innerHTML = '';
-            await this.randomPlaceShip();
-
-            // FieldCreation.renderBoard(board, this.playerField.field);
+            this.randomPlaceShip();
 
             document.querySelector('.manualShipPlacementContainer').remove();
             this.shipAxis = null;
