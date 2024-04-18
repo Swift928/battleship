@@ -31,6 +31,10 @@
     cursor: not-allowed;
 }
 
+#playerField:hover {
+    cursor: not-allowed;
+}
+
 .game-over {
     pointer-events: none;
 }
