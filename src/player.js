@@ -122,19 +122,19 @@ class Player {
             const horizontalSrc = '/src/images/pan-horizontal.svg';
             const verticalSrc = '/src/images/pan-vertical.svg';
 
-            const div = document.createElement('img');
-            div.classList.add('axisButtonSVG');
-
-            div.src = horizontalSrc;
+            const axisButtonSVG = document.createElement('img');
+            axisButtonSVG.classList.add('axisButtonSVG');
+            axisButtonSVG.src = horizontalSrc;
 
             axisButton.innerHTML = 'Axis: ';
 
-            axisButton.append(div);
+            axisButton.append(axisButtonSVG);
 
             axisButton.addEventListener('click', () => {
                 this.shipAxis = this.shipAxis === null ? true : null;
 
-                div.src = this.shipAxis === null ? horizontalSrc : verticalSrc;
+                axisButtonSVG.src =
+                    this.shipAxis === null ? horizontalSrc : verticalSrc;
             });
 
             const container = document.createElement('div');
@@ -166,10 +166,20 @@ class Player {
                 shipsContainer.append(shipImage);
             });
 
+            const buttonsContainer = document.createElement('div');
+            buttonsContainer.classList.add('buttonsContainer');
+
             const refreshButton = document.createElement('button');
             refreshButton.classList.add('refreshButton');
             refreshButton.innerHTML = 'REFRESH';
-            container.append(refreshButton);
+
+            const randomButton = document.createElement('button');
+            randomButton.classList.add('randomButton');
+            randomButton.innerHTML = 'RANDOM';
+
+            buttonsContainer.append(randomButton);
+            buttonsContainer.append(refreshButton);
+            container.append(buttonsContainer);
 
             container.append(shipsContainer);
 
@@ -183,6 +193,7 @@ class Player {
             gameFields.prepend(manualShipPlacementContainer);
 
             this.refreshButton();
+            this.randomButton(shipPlacementBoard, resolve);
 
             this.sampleGridEventListeners(shipPlacementBoard, resolve);
         });
@@ -192,9 +203,26 @@ class Player {
         document.querySelector('.manualShipPlacementContainer').remove();
     }
 
+    randomButton(board, resolve) {
+        const button = document.querySelector('.randomButton');
+
+        button.addEventListener('click', () => {
+            document.querySelector('.practice').innerHTML = '';
+
+            board.innerHTML = '';
+            this.randomPlaceShip();
+
+            FieldCreation.renderBoard(board, this.playerField.field);
+
+            resolve();
+        });
+    }
+
     refreshButton() {
         const button = document.querySelector('.refreshButton');
+
         button.addEventListener('click', () => {
+            if (this.ships.length === 5) return;
             this.refreshState();
 
             const manualPlacementBoard = document.querySelector(
