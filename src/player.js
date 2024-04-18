@@ -206,13 +206,16 @@ class Player {
     randomButton(board, resolve) {
         const button = document.querySelector('.randomButton');
 
-        button.addEventListener('click', () => {
+        button.addEventListener('click', async () => {
             document.querySelector('.practice').innerHTML = '';
 
             board.innerHTML = '';
-            this.randomPlaceShip();
+            await this.randomPlaceShip();
 
-            FieldCreation.renderBoard(board, this.playerField.field);
+            // FieldCreation.renderBoard(board, this.playerField.field);
+
+            document.querySelector('.manualShipPlacementContainer').remove();
+            this.shipAxis = null;
 
             resolve();
         });
