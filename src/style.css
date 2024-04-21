@@ -79,6 +79,7 @@
 
 .shot-hit {
     background-color: red;
+    opacity: 0.7;
 }
 
 .good-placement {
@@ -162,13 +163,18 @@ div#endOfGameOptions button {
 }
 
 .manualShipPlaceholders:not(.selected) {
-    opacity: 0.7;
+    opacity: 0.8;
+}
+
+.refreshButton {
+    display: none;
 }
 
 .buttonsContainer {
     display: flex;
     gap: 15px;
-    margin-top: auto;
+    width: 200px;
+    justify-content: center;
     position: absolute;
     top: 110%;
     left: 525px;

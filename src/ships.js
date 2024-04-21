@@ -1,10 +1,17 @@
 class Ship {
     constructor(_length) {
+        this.id = this.generateRandomId();
         this.length = _length;
         this.sunk = false;
         this.hits = 0;
         this.image = null;
         this.axis = null;
+    }
+
+    generateRandomId() {
+        const min = 1000; // Minimum ID value
+        const max = 9999; // Maximum ID value
+        return Math.floor(Math.random() * (max - min + 1)) + min; // Generate a random number between min and max
     }
 
     hit() {
@@ -15,9 +22,13 @@ class Ship {
     isSunk() {
         if (this.hits === this.length) {
             this.sunk = true;
-            return `Ship is Sunk`;
+            return true;
         }
-        return `Ship Not Sunk`;
+        return false;
+    }
+
+    removeTestShot() {
+        this.hits -= 1;
     }
 
     get shipImage() {
@@ -38,6 +49,14 @@ class Ship {
         }
 
         return this.image;
+    }
+
+    get shipId() {
+        return this.id;
+    }
+
+    get shipLength() {
+        return this.length;
     }
 }
 

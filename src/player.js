@@ -217,6 +217,14 @@ class Player {
         });
     }
 
+    refreshButtonDisplay() {
+        const button = document.querySelector('.refreshButton');
+
+        if (this.ships.length <= 4) {
+            button.style.display = 'unset';
+        }
+    }
+
     refreshButton() {
         const button = document.querySelector('.refreshButton');
 
@@ -232,6 +240,8 @@ class Player {
             ).filter((child) => !child.classList.contains('grid-item'));
             shipsOnBoard.forEach((child) => child.remove());
             this.updateShipsContainer();
+
+            button.style.display = 'none';
         });
     }
 
@@ -259,6 +269,7 @@ class Player {
                 this.ships.splice(this.selectedShipIndex, 1);
                 this.updateShipsContainerOnClick();
                 this.updateShipsContainer();
+                this.refreshButtonDisplay();
                 this.selectedShipIndex = -1;
                 Player.hoverPlacementRemove(gridItem);
                 grid.innerHTML = '';

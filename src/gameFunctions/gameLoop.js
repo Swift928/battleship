@@ -5,6 +5,7 @@ const { PlayerMove } = require('./playerMove');
 const { GameStatus } = require('./gameStatus');
 const { Computer: ComputerMove } = require('./computerMove');
 const { GameBoard } = require('../gameBoard');
+const { Ship } = require('../ships');
 
 class GameLoop {
     constructor() {
@@ -26,6 +27,10 @@ class GameLoop {
 
     async playGame() {
         const computerField = document.getElementById('computerField');
+
+        // Hide the ship images
+        const computerShips = computerField.querySelectorAll('.overlay');
+        computerShips.forEach((ship) => (ship.style.display = 'none'));
 
         while (!this.isGameOver) {
             await PlayerMove.move(this.player.opponentBoard);

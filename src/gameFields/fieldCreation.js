@@ -21,6 +21,7 @@ class FieldCreation {
                 };
 
                 knownVessel.container.classList.add('overlay');
+                knownVessel.container.dataset.shipId = ship.shipId;
 
                 const { shipImage } = ship;
                 shipImage.alt = 'Ship';
