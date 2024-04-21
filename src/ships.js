@@ -35,7 +35,7 @@ class Ship {
         this.image = document.createElement('img');
 
         if (this.length === 3) {
-            this.image.src = '/src/images/length3Ship.svg';
+            this.image.src = './images/length3Ship.svg';
             this.image.classList.add('length3Ship');
         } else if (this.length === 4) {
             this.image.src = '/src/images/length4Ship.png';
