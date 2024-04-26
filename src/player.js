@@ -1,8 +1,14 @@
+import FieldCreation from './gameFields/fieldCreation';
+import GameBoard from './gameBoard';
+import Ship from './ships';
+import panVertical from './images/pan-vertical.svg';
+import panHorizontal from './images/pan-horizontal.svg';
+
 const prompt = require('prompt-sync')();
 
-const { FieldCreation } = require('./gameFields/fieldCreation');
-const { GameBoard } = require('./gameBoard');
-const { Ship } = require('./ships');
+// const { FieldCreation } = require('./gameFields/fieldCreation');
+// const { GameBoard } = require('./gameBoard');
+// const { Ship } = require('./ships');
 
 class Player {
     constructor(name) {
@@ -117,12 +123,12 @@ class Player {
             const axisButton = document.createElement('button');
             axisButton.classList.add('axis-button');
 
-            const horizontalSrc = '/src/images/pan-horizontal.svg';
-            const verticalSrc = '/src/images/pan-vertical.svg';
+            // const horizontalSrc = './images/pan-horizontal.svg';
+            // const verticalSrc = './images/pan-vertical.svg';
 
             const axisButtonSVG = document.createElement('img');
             axisButtonSVG.classList.add('axisButtonSVG');
-            axisButtonSVG.src = horizontalSrc;
+            axisButtonSVG.src = panHorizontal;
 
             axisButton.innerHTML = 'Axis: ';
 
@@ -132,7 +138,7 @@ class Player {
                 this.shipAxis = this.shipAxis === null ? true : null;
 
                 axisButtonSVG.src =
-                    this.shipAxis === null ? horizontalSrc : verticalSrc;
+                    this.shipAxis === null ? panHorizontal : panVertical;
             });
 
             const container = document.createElement('div');
@@ -341,6 +347,8 @@ class Player {
     }
 }
 
-module.exports = {
-    Player,
-};
+// module.exports = {
+//     Player,
+// };
+
+export default Player;

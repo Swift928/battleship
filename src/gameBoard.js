@@ -1,4 +1,6 @@
-const { Ship } = require('./ships');
+// const { Ship } = require('./ships');
+
+import Ship from './ships';
 
 class GameBoard {
     constructor() {
@@ -94,6 +96,8 @@ class GameBoard {
     }
 }
 
-module.exports = {
-    GameBoard,
-};
+// module.exports = {
+//     GameBoard,
+// };
+
+export default GameBoard;

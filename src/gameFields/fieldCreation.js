@@ -1,4 +1,5 @@
-const { Ship } = require('../ships');
+// const { Ship } = require('../ships');
+import Ship from '../ships';
 
 class FieldCreation {
     static makeField(thisBoard, thisField, i, j, shipsContainer) {
@@ -98,6 +99,8 @@ class FieldCreation {
     }
 }
 
-module.exports = {
-    FieldCreation,
-};
+// module.exports = {
+//     FieldCreation,
+// };
+
+export default FieldCreation;

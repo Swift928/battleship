@@ -1,4 +1,7 @@
-const { Player } = require('./player');
+// const { Player } = require('./player');
+
+// import { Player } from './player';
+import Player from './player';
 
 class Computer extends Player {
     constructor() {
@@ -32,6 +35,8 @@ class Computer extends Player {
     }
 }
 
-module.exports = {
-    Computer,
-};
+// module.exports = {
+//     Computer,
+// };
+
+export default Computer;

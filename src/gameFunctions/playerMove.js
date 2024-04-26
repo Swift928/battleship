@@ -1,4 +1,6 @@
-const { Ship } = require('../ships');
+// const { Ship } = require('../ships');
+
+import Ship from '../ships';
 
 class PlayerMove {
     static async move(oppBoard) {
@@ -54,6 +56,8 @@ class PlayerMove {
     }
 }
 
-module.exports = {
-    PlayerMove,
-};
+// module.exports = {
+//     PlayerMove,
+// };
+
+export default PlayerMove;

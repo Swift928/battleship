@@ -1,3 +1,8 @@
+import length2ShipImg from './images/boat.png';
+import length3ShipImg from './images/length3Ship.svg';
+import length4ShipImg from './images/length4Ship.png';
+import length5ShipImg from './images/length5Ship.png';
+
 class Ship {
     constructor(_length) {
         this.id = this.generateRandomId();
@@ -35,16 +40,16 @@ class Ship {
         this.image = document.createElement('img');
 
         if (this.length === 3) {
-            this.image.src = '/src/images/length3Ship.svg';
+            this.image.src = length3ShipImg;
             this.image.classList.add('length3Ship');
         } else if (this.length === 4) {
-            this.image.src = '/src/images/length4Ship.png';
+            this.image.src = length4ShipImg;
             this.image.classList.add('length4Ship');
         } else if (this.length === 5) {
-            this.image.src = '/src/images/length5Ship.png';
+            this.image.src = length5ShipImg;
             this.image.classList.add('length5Ship');
         } else {
-            this.image.src = '/src/images/boat.png';
+            this.image.src = length2ShipImg;
             this.image.classList.add('length2Ship');
         }
 
@@ -60,6 +65,8 @@ class Ship {
     }
 }
 
-module.exports = {
-    Ship,
-};
+// module.exports = {
+//     Ship,
+// };
+
+export default Ship;

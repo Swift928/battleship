@@ -1,11 +1,20 @@
-const { Player } = require('../player');
-const { Computer } = require('../computer');
-const { inputHandler } = require('./inputHandler');
-const { PlayerMove } = require('./playerMove');
-const { GameStatus } = require('./gameStatus');
-const { Computer: ComputerMove } = require('./computerMove');
-const { GameBoard } = require('../gameBoard');
-const { Ship } = require('../ships');
+// const { Player } = require('../player');
+// const { Computer } = require('../computer');
+// const { inputHandler } = require('./inputHandler');
+// const { PlayerMove } = require('./playerMove');
+// const { GameStatus } = require('./gameStatus');
+// const { Computer: ComputerMove } = require('./computerMove');
+// const { GameBoard } = require('../gameBoard');
+// const { Ship } = require('../ships');
+
+import Player from '../player';
+import Computer from '../computer';
+import inputHandler from './inputHandler';
+import PlayerMove from './playerMove';
+import GameStatus from './gameStatus';
+import ComputerMove from './computerMove';
+import GameBoard from '../gameBoard';
+// import { Ship } from '../ships';
 
 class GameLoop {
     constructor() {
@@ -95,6 +104,8 @@ class GameLoop {
     }
 }
 
-module.exports = {
-    GameLoop,
-};
+// module.exports = {
+//     GameLoop,
+// };
+
+export default GameLoop;
