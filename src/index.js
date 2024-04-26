@@ -1,3 +1,10 @@
+import panVertical from './images/pan-vertical.svg';
+import panHorizontal from './images/pan-horizontal.svg';
+import length2ShipImg from './images/boat.png';
+import length3ShipImg from './images/length3Ship.svg';
+import length4ShipImg from './images/length4Ship.png';
+import length5ShipImg from './images/length5Ship.png';
+
 import './style.css';
 import screenRender from './screenRender';
 
