@@ -1,4 +1,3 @@
-// const { Ship } = require('../ships');
 import Ship from '../ships';
 
 class FieldCreation {
@@ -98,9 +97,5 @@ class FieldCreation {
         }
     }
 }
-
-// module.exports = {
-//     FieldCreation,
-// };
 
 export default FieldCreation;

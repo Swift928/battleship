@@ -1,12 +1,3 @@
-// const { Player } = require('../player');
-// const { Computer } = require('../computer');
-// const { inputHandler } = require('./inputHandler');
-// const { PlayerMove } = require('./playerMove');
-// const { GameStatus } = require('./gameStatus');
-// const { Computer: ComputerMove } = require('./computerMove');
-// const { GameBoard } = require('../gameBoard');
-// const { Ship } = require('../ships');
-
 import Player from '../player';
 import Computer from '../computer';
 import inputHandler from './inputHandler';
@@ -14,7 +5,6 @@ import PlayerMove from './playerMove';
 import GameStatus from './gameStatus';
 import ComputerMove from './computerMove';
 import GameBoard from '../gameBoard';
-// import { Ship } from '../ships';
 
 class GameLoop {
     constructor() {
@@ -42,7 +32,24 @@ class GameLoop {
         computerShips.forEach((ship) => (ship.style.display = 'none'));
 
         while (!this.isGameOver) {
-            await PlayerMove.move(this.player.opponentBoard);
+            if (this.activePlayer === this.player) {
+                const hitTarget = await PlayerMove.move(
+                    this.player.opponentBoard
+                );
+                if (!hitTarget) {
+                    this.switchTurns();
+                }
+            } else {
+                computerField.style.pointerEvents = 'none';
+                const hitTarget = await ComputerMove.move(
+                    this,
+                    this.computer.opponentBoard
+                );
+
+                if (!hitTarget) {
+                    this.switchTurns();
+                }
+            }
 
             GameStatus.boardCheck(this, this.player.opponentBoard);
             if (this.isGameOver) {
@@ -50,18 +57,6 @@ class GameLoop {
                 break;
             }
 
-            this.switchTurns();
-            computerField.style.pointerEvents = 'none';
-
-            await ComputerMove.move(this, this.computer.opponentBoard);
-
-            GameStatus.boardCheck(this, this.player.playerField);
-            if (this.isGameOver) {
-                this.endOfGame();
-                break;
-            }
-
-            this.switchTurns();
             computerField.style.pointerEvents = 'auto';
         }
 

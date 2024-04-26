@@ -13,8 +13,4 @@ class inputHandler {
     }
 }
 
-// module.exports = {
-//     inputHandler,
-// };
-
 export default inputHandler;

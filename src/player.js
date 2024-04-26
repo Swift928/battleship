@@ -6,10 +6,6 @@ import panHorizontal from './images/pan-horizontal.svg';
 
 const prompt = require('prompt-sync')();
 
-// const { FieldCreation } = require('./gameFields/fieldCreation');
-// const { GameBoard } = require('./gameBoard');
-// const { Ship } = require('./ships');
-
 class Player {
     constructor(name) {
         this.playerName = name;
@@ -122,9 +118,6 @@ class Player {
             );
             const axisButton = document.createElement('button');
             axisButton.classList.add('axis-button');
-
-            // const horizontalSrc = './images/pan-horizontal.svg';
-            // const verticalSrc = './images/pan-vertical.svg';
 
             const axisButtonSVG = document.createElement('img');
             axisButtonSVG.classList.add('axisButtonSVG');
@@ -346,9 +339,5 @@ class Player {
         return this.playerField;
     }
 }
-
-// module.exports = {
-//     Player,
-// };
 
 export default Player;

@@ -1,6 +1,3 @@
-// const { Player } = require('./player');
-
-// import { Player } from './player';
 import Player from './player';
 
 class Computer extends Player {
@@ -34,9 +31,5 @@ class Computer extends Player {
         });
     }
 }
-
-// module.exports = {
-//     Computer,
-// };
 
 export default Computer;

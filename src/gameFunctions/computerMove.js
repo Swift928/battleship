@@ -17,13 +17,11 @@ class Computer {
             targetElement.appendChild(dot);
 
             targetElement.classList.add('used-item');
-            resolve();
+
+            const hitTarget = `${oppBoard.field[xCor][yCor]}` === 'hit';
+            resolve(hitTarget);
         });
     }
 }
-
-// module.exports = {
-//     Computer,
-// };
 
 export default Computer;

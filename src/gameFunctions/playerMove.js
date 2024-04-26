@@ -1,5 +1,3 @@
-// const { Ship } = require('../ships');
-
 import Ship from '../ships';
 
 class PlayerMove {
@@ -29,11 +27,11 @@ class PlayerMove {
                         selectedElement.hit();
                         if (selectedElement.isSunk()) {
                             const { shipId } = selectedElement;
-                            const chie = computerField.querySelector(
+                            const displayShip = computerField.querySelector(
                                 `.overlay[data-ship-id="${shipId}"]`
                             );
 
-                            chie.style.display = 'revert';
+                            displayShip.style.display = 'revert';
                         } else selectedElement.removeTestShot();
                     }
 
@@ -48,16 +46,15 @@ class PlayerMove {
                     target.classList.add('used-item');
                     computerField.removeEventListener('click', clickHandler);
 
-                    resolve();
+                    const hitTarget =
+                        `${oppBoard.field[rowIndex][colIndex]}` === 'hit';
+
+                    resolve(hitTarget);
                 }
             };
             computerField.addEventListener('click', clickHandler);
         });
     }
 }
-
-// module.exports = {
-//     PlayerMove,
-// };
 
 export default PlayerMove;

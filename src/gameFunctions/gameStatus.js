@@ -1,4 +1,3 @@
-// const { Ship } = require('../ships');
 import Ship from '../ships';
 
 class GameStatus {
@@ -47,9 +46,5 @@ class GameStatus {
         });
     }
 }
-
-// module.exports = {
-//     GameStatus,
-// };
 
 export default GameStatus;

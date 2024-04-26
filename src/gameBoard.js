@@ -1,5 +1,3 @@
-// const { Ship } = require('./ships');
-
 import Ship from './ships';
 
 class GameBoard {
@@ -95,9 +93,5 @@ class GameBoard {
         return game;
     }
 }
-
-// module.exports = {
-//     GameBoard,
-// };
 
 export default GameBoard;

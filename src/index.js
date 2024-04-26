@@ -3,9 +3,6 @@ import screenRender from './screenRender';
 import FieldCreation from './gameFields/fieldCreation';
 import GameLoop from './gameFunctions/gameLoop';
 
-// const { FieldCreation } = require('./gameFields/fieldCreation');
-// const { GameLoop } = require('./gameFunctions/gameLoop');
-
 (async () => {
     let game;
     let state;
