@@ -32,24 +32,7 @@ class GameLoop {
         computerShips.forEach((ship) => (ship.style.display = 'none'));
 
         while (!this.isGameOver) {
-            if (this.activePlayer === this.player) {
-                const hitTarget = await PlayerMove.move(
-                    this.player.opponentBoard
-                );
-                if (!hitTarget) {
-                    this.switchTurns();
-                }
-            } else {
-                computerField.style.pointerEvents = 'none';
-                const hitTarget = await ComputerMove.move(
-                    this,
-                    this.computer.opponentBoard
-                );
-
-                if (!hitTarget) {
-                    this.switchTurns();
-                }
-            }
+            const hitTarget = await this.performTurn();
 
             GameStatus.boardCheck(this, this.player.opponentBoard);
             if (this.isGameOver) {
@@ -57,10 +40,25 @@ class GameLoop {
                 break;
             }
 
+            if (!hitTarget) {
+                this.switchTurns();
+            }
+
             computerField.style.pointerEvents = 'auto';
         }
 
         return console.log(`${this.activePlayer.playerName} You Win!`);
+    }
+
+    async performTurn() {
+        const computerField = document.getElementById('computerField');
+        const isPlayerTurn = this.activePlayer === this.player;
+
+        if (isPlayerTurn) {
+            return PlayerMove.move(this.player.opponentBoard);
+        }
+        computerField.style.pointerEvents = 'none';
+        return ComputerMove.move(this, this.computer.opponentBoard);
     }
 
     switchTurns() {
@@ -85,7 +83,8 @@ class GameLoop {
             .forEach((element) => element.classList.add('hidden'));
         endOfGameContainer.classList.toggle('hidden');
 
-        applauseField.textContent = `Congratulations ${this.activePlayer.playerName}`;
+        applauseField.textContent =
+            this.activePlayer !== this.player ? 'You Lose!' : 'You Win!';
 
         playerScore.textContent = `${this.player.playerName}: ${this.player.score}`;
         computerScore.textContent = `${this.computer.playerName}: ${this.computer.score}`;
