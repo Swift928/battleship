@@ -22,41 +22,41 @@ import GameLoop from './gameFunctions/gameLoop';
     };
 
     const startGame = async () => {
-        if (!game) game = new GameLoop();
+        game ||= new GameLoop(); // Initializes the game if not already initialized.
 
-        if (!state) state = await screenRender(state?.playerName);
+        state ||= await screenRender(state?.playerName); // Renders the screen and sets up the state.
 
-        await game.setPlayer(state.playerName);
+        await game.setPlayer(state.playerName); // Sets the player name in the game.
 
-        gameFields.classList.remove('hidden');
+        gameFields.classList.remove('hidden'); // Makes the game fields visible.
         [playerFieldElement, computerFieldElement].forEach(
-            (el) => (el.style.display = 'grid')
+            (el) => (el.style.display = 'grid') // Sets the display style to 'grid' for the game fields.
         );
+
         gameFields
             .querySelectorAll('*')
-            .forEach((element) => element.classList.remove('hidden'));
+            .forEach((element) => element.classList.remove('hidden')); // Makes all elements within the game fields visible.
 
-        renderBoard();
+        renderBoard(); // Renders the initial game board.
 
-        game.playGame();
+        game.playGame(); // Starts the game loop.
     };
 
     startGame();
 
     playAgainButton.addEventListener('click', async () => {
-        [endOfGameContainer].forEach((el) => el.classList.toggle('hidden'));
+        [endOfGameContainer].forEach((el) => el.classList.toggle('hidden')); // Toggles visibility of the end-of-game container.
 
-        game.resetGame();
+        game.resetGame(); // Resets the game logic.
 
         [playerFieldElement, computerFieldElement].forEach(
-            (el) => (el.innerHTML = '')
+            (el) => (el.innerHTML = '') // Clears the contents of the player and computer fields.
         );
 
-        await startGame();
+        await startGame(); // Restarts the game.
     });
 
     endGameButton.addEventListener('click', () => {
-        // eslint-disable-next-line no-restricted-globals
-        location.reload();
+        window.location.reload();
     });
 })();
