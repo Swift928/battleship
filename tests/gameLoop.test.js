@@ -1,8 +1,7 @@
-const { GameLoop } = require('../src/gameFunctions/gameLoop');
-const { inputHandler } = require('../src/gameFunctions/inputHandler');
-const prompt = require('prompt-sync')();
+import GameLoop from '../src/gameFunctions/gameLoop.js';
+import inputHandler from '../src/gameFunctions/inputHandler.js';
 
-jest.mock('../src/gameFunctions/inputHandler');
+jest.mock('../src/gameFunctions/inputHandler.js');
 
 describe('This suite will test the game loop functionality', () => {
     let game;
