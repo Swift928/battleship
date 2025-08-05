@@ -1,10 +1,10 @@
-import Player from '../player';
-import Computer from '../computer';
-import inputHandler from './inputHandler';
-import PlayerMove from './playerMove';
-import GameStatus from './gameStatus';
-import ComputerMove from './computerMove';
-import GameBoard from '../gameBoard';
+import Player from '../player.js';
+import Computer from '../computer.js';
+import inputHandler from './inputHandler.js';
+import PlayerMove from './playerMove.js';
+import GameStatus from './gameStatus.js';
+import ComputerMove from './computerMove.js';
+import GameBoard from '../gameBoard.js';
 
 class GameLoop {
     constructor() {

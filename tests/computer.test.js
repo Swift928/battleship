@@ -1,7 +1,6 @@
-const { Computer } = require('../src/computer');
-const { Player } = require('../src/player');
-const { Ship } = require('../src/ships');
-const prompt = require('prompt-sync')();
+import Computer from '../src/computer.js';
+import Player from '../src/player.js';
+import Ship from '../src/ships.js';
 
 describe('This suite will test the Computer class functionality', () => {
     let computer;
