@@ -7,6 +7,9 @@ class Computer extends Player {
         this.playerName = 'Computer';
         this.availableMoves = Computer.generateAllMoves();
         this.possibleMoves = [];
+        this.huntStack = [];
+        this.lastHit = null;
+        this.hitDirection = null;
     }
 
     refreshComputer() {
@@ -14,6 +17,9 @@ class Computer extends Player {
         this.playerField = this.randomPlaceShip();
         this.availableMoves = Computer.generateAllMoves();
         this.possibleMoves = [];
+        this.huntStack = [];
+        this.lastHit = null;
+        this.hitDirection = null;
     }
 
     computerField = () => this.playerField;
@@ -34,20 +40,25 @@ class Computer extends Player {
     }
 
     addAdjacentMoves(xCor, yCor) {
-        const neighbors = [
-            [xCor + 1, yCor],
-            [xCor - 1, yCor],
-            [xCor, yCor + 1],
-            [xCor, yCor - 1],
+        // Add adjacent cells to huntStack for smarter targeting
+        const directions = [
+            [1, 0],
+            [-1, 0],
+            [0, 1],
+            [0, -1],
         ];
-
-        neighbors.forEach(([x, y]) => {
-            if (x >= 0 && x < 10 && y >= 0 && y < 10) {
+        directions.forEach(([dx, dy]) => {
+            const nx = xCor + dx;
+            const ny = yCor + dy;
+            if (nx >= 0 && nx < 10 && ny >= 0 && ny < 10) {
+                // Only add if not already attacked
                 const index = this.availableMoves.findIndex(
-                    ([ax, ay]) => ax === x && ay === y
+                    ([ax, ay]) => ax === nx && ay === ny
                 );
                 if (index !== -1) {
-                    this.possibleMoves.push(this.availableMoves.splice(index, 1)[0]);
+                    this.huntStack.push(
+                        this.availableMoves.splice(index, 1)[0]
+                    );
                 }
             }
         });
@@ -57,25 +68,105 @@ class Computer extends Player {
         return new Promise((resolve) => {
             const attemptAttack = () => {
                 let move;
-                if (this.possibleMoves.length) {
-                    move = this.possibleMoves.shift();
+                // Prioritize huntStack (target mode)
+                if (this.huntStack.length) {
+                    move = this.huntStack.shift();
                 } else {
                     move = this.getRandomMove();
                 }
 
                 const [xCor, yCor] = move;
-                const attackResult = this.opponentBoard.receiveAttack(xCor, yCor);
+                const attackResult = this.opponentBoard.receiveAttack(
+                    xCor,
+                    yCor
+                );
 
                 if (attackResult) {
                     if (this.opponentBoard.field[xCor][yCor] === 'hit') {
-                        this.addAdjacentMoves(xCor, yCor);
+                        // If lastHit exists, try to determine direction
+                        if (this.lastHit) {
+                            const [lx, ly] = this.lastHit;
+                            if (!this.hitDirection) {
+                                if (lx === xCor)
+                                    this.hitDirection = 'horizontal';
+                                if (ly === yCor) this.hitDirection = 'vertical';
+                            }
+                            // Continue in the same direction
+                            if (this.hitDirection === 'horizontal') {
+                                [
+                                    [1, 0],
+                                    [-1, 0],
+                                ].forEach(([dx, dy]) => {
+                                    const nx = xCor + dx;
+                                    const ny = yCor + dy;
+                                    if (
+                                        nx >= 0 &&
+                                        nx < 10 &&
+                                        ny >= 0 &&
+                                        ny < 10
+                                    ) {
+                                        const index =
+                                            this.availableMoves.findIndex(
+                                                ([ax, ay]) =>
+                                                    ax === nx && ay === ny
+                                            );
+                                        if (index !== -1) {
+                                            this.huntStack.push(
+                                                this.availableMoves.splice(
+                                                    index,
+                                                    1
+                                                )[0]
+                                            );
+                                        }
+                                    }
+                                });
+                            } else if (this.hitDirection === 'vertical') {
+                                [
+                                    [0, 1],
+                                    [0, -1],
+                                ].forEach(([dx, dy]) => {
+                                    const nx = xCor + dx;
+                                    const ny = yCor + dy;
+                                    if (
+                                        nx >= 0 &&
+                                        nx < 10 &&
+                                        ny >= 0 &&
+                                        ny < 10
+                                    ) {
+                                        const index =
+                                            this.availableMoves.findIndex(
+                                                ([ax, ay]) =>
+                                                    ax === nx && ay === ny
+                                            );
+                                        if (index !== -1) {
+                                            this.huntStack.push(
+                                                this.availableMoves.splice(
+                                                    index,
+                                                    1
+                                                )[0]
+                                            );
+                                        }
+                                    }
+                                });
+                            } else {
+                                this.addAdjacentMoves(xCor, yCor);
+                            }
+                        } else {
+                            this.addAdjacentMoves(xCor, yCor);
+                        }
+                        this.lastHit = [xCor, yCor];
+                    } else {
+                        // If miss, reset direction if huntStack is empty
+                        if (!this.huntStack.length) {
+                            this.lastHit = null;
+                            this.hitDirection = null;
+                        }
                     }
                     resolve({ xCor, yCor });
                 } else {
                     attemptAttack();
                 }
             };
-
             setTimeout(attemptAttack, 500);
         });
     }
