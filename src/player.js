@@ -1,10 +1,11 @@
-import FieldCreation from './gameFields/fieldCreation';
-import GameBoard from './gameBoard';
-import Ship from './ships';
+import FieldCreation from './gameFields/fieldCreation.js';
+import GameBoard from './gameBoard.js';
+import Ship from './ships.js';
 import panVertical from './images/pan-vertical.svg';
 import panHorizontal from './images/pan-horizontal.svg';
+import promptSync from 'prompt-sync';
 
-const prompt = require('prompt-sync')();
+const prompt = promptSync();
 
 class Player {
     constructor(name) {
@@ -316,8 +317,7 @@ class Player {
 
     randomPlaceShip() {
         while (this.ships.length) {
-            const randomIndex =
-                this.ships[Math.floor(Math.random() * this.ships.length)];
+            const randomIndex = Math.floor(Math.random() * this.ships.length);
             const randomShip = this.ships.splice(randomIndex, 1)[0];
             try {
                 const xCor = Math.floor(Math.random() * 10);

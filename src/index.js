@@ -1,7 +1,7 @@
 import './style.css';
-import screenRender from './screenRender';
-import FieldCreation from './gameFields/fieldCreation';
-import GameLoop from './gameFunctions/gameLoop';
+import screenRender from './screenRender.js';
+import FieldCreation from './gameFields/fieldCreation.js';
+import GameLoop from './gameFunctions/gameLoop.js';
 
 (async () => {
     let game;

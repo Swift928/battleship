@@ -1,4 +1,4 @@
-const { Ship } = require('../src/ships');
+import Ship from '../src/ships.js';
 
 describe('Ship', () => {
     let testShip;

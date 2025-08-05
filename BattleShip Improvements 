@@ -1,0 +1,2 @@
+- Add a message that display’s what is currently happening in the game. whos turn, what it a hit or miss etc.
+- Make the computer smart, know where to play next if it hit a target, to try again within the same area.

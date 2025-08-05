@@ -1,5 +1,5 @@
-const { GameBoard } = require('../src/gameBoard');
-const { Ship } = require('../src/ships');
+import GameBoard from '../src/gameBoard.js';
+import Ship from '../src/ships.js';
 
 describe('These suite of test will test the game board functionality', () => {
     let testField;

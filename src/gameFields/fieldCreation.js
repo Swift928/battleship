@@ -1,4 +1,4 @@
-import Ship from '../ships';
+import Ship from '../ships.js';
 
 class FieldCreation {
     static makeField(thisBoard, thisField, i, j, shipsContainer) {
