@@ -14,8 +14,8 @@ describe('These suite of test will test the game board functionality', () => {
         expect(testField.isSpaceAvailable(4, 5, testField)).toBe(true);
     });
 
-    test('this will return a placeholder for the ship on the board', () => {
-        expect(testField.placeShip(5, 5, testShip)).toBe(testField.field);
+    test('this will place a ship on the board', () => {
+        expect(testField.placeShip(5, 5, testShip)).toBe(true);
     });
 
     test('Missed attacks should display a placeholder', () => {

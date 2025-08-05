@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import Player from '../src/player.js';
 import Computer from '../src/computer.js';
 import Ship from '../src/ships.js';
@@ -12,14 +13,13 @@ describe('This suite will test the Player class functionality', () => {
     });
 
     test('Correctly places ships on the field after entering valid coordinates.', async () => {
-        const mockGetUserInput = jest.fn();
-        mockGetUserInput.mockReturnValueOnce('3 4');
-        mockGetUserInput.mockReturnValueOnce('4 4');
-        mockGetUserInput.mockReturnValueOnce('2 1');
-        mockGetUserInput.mockReturnValueOnce('1 4');
-        mockGetUserInput.mockReturnValueOnce('7 1');
-
-        player.getUserInput = mockGetUserInput;
+        const mockGetUserInput = jest.spyOn(Player, 'getUserInput');
+        mockGetUserInput
+            .mockResolvedValueOnce('3 4')
+            .mockResolvedValueOnce('4 4')
+            .mockResolvedValueOnce('2 1')
+            .mockResolvedValueOnce('1 4')
+            .mockResolvedValueOnce('7 1');
 
         await player.placeShip();
 
@@ -28,6 +28,7 @@ describe('This suite will test the Player class functionality', () => {
         );
 
         expect(shipsOnFieldSet.size).toBe(5);
+        mockGetUserInput.mockRestore();
     });
 
     test('Correctly places ships randomly around the field', () => {
