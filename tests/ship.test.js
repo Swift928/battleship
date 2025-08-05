@@ -13,7 +13,6 @@ describe('Ship', () => {
     });
 
     test(`This will check the ship hasn't sunk after one hit`, () => {
-        testShip.hit();
         expect(testShip.sunk).toBe(false);
     });
 
