@@ -34,7 +34,13 @@ class GameLoop {
         while (!this.isGameOver) {
             const hitTarget = await this.performTurn();
 
-            GameStatus.boardCheck(this, this.player.opponentBoard);
+            // Fix: Pass correct board to boardCheck
+            if (this.activePlayer === this.player) {
+                GameStatus.boardCheck(this, this.computer.playerField);
+            } else {
+                GameStatus.boardCheck(this, this.player.playerField);
+            }
+
             if (this.isGameOver) {
                 this.endOfGame();
                 break;
@@ -94,6 +100,14 @@ class GameLoop {
         this.player.refreshState();
         this.computer.refreshComputer();
         this.isGameOver = false;
+
+        // Re-enable pointer events on computer field
+        const computerField = document.getElementById('computerField');
+        if (computerField) {
+            computerField.style.pointerEvents = 'auto';
+            computerField.classList.remove('game-over');
+        }
+
         GameStatus.newGame();
     }
 }
