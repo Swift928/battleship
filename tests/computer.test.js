@@ -20,14 +20,14 @@ describe('This suite will test the Computer class functionality', () => {
         expect(shipsPlaced.size).toBe(5);
     });
 
-    test('Computer attacks on opponents game board is handled correctly', async () => {
+    test('Computer attacks on opponent\'s game board is handled correctly', async () => {
         let player = new Player('Chief');
         player.randomPlaceShip();
 
         computer.randomPlaceShip();
         computer.targetField = player.playerField;
 
-        // Deep copy to preserve the opponents board
+        // Deep copy to preserve the opponent's board
         let initialOpponentBoard = JSON.parse(
             JSON.stringify(computer.opponentBoard.field)
         );
