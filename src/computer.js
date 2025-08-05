@@ -78,18 +78,17 @@ class Computer extends Player {
             }
 
             const [xCor, yCor] = move;
+            const cellValue = this.opponentBoard.field[xCor][yCor]; // Store ship reference before attack
             const attackResult = this.opponentBoard.receiveAttack(xCor, yCor);
             await delay(500);
 
             if (attackResult) {
                 if (this.opponentBoard.field[xCor][yCor] === 'hit') {
-                    const ship = this.opponentBoard.field[xCor][yCor];
-
-                    // Check if ship is sunk
-                    if (ship && ship.sunk) {
+                    // Hit a ship - check if it's sunk using the original ship reference
+                    if (cellValue && cellValue.sunk) {
                         // Ship sunk - clear hunt mode and remove all adjacent cells from hunt stack
                         this.clearHuntMode();
-                        this.removeAdjacentFromHunt(xCor, yCor, ship);
+                        this.removeAdjacentFromHunt(xCor, yCor, cellValue);
                     } else {
                         // Ship hit but not sunk - enter/continue hunt mode
                         this.handleHit(xCor, yCor);
