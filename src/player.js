@@ -316,8 +316,7 @@ class Player {
 
     randomPlaceShip() {
         while (this.ships.length) {
-            const randomIndex =
-                this.ships[Math.floor(Math.random() * this.ships.length)];
+            const randomIndex = Math.floor(Math.random() * this.ships.length);
             const randomShip = this.ships.splice(randomIndex, 1)[0];
             try {
                 const xCor = Math.floor(Math.random() * 10);
