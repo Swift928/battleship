@@ -5,7 +5,7 @@ class GameBoard {
         this.field = GameBoard.board();
     }
 
-    placeShip(xCor, yCor, ship, axis = null) {
+    placeShip(xCor, yCor, ship, axis = false) {
         if (!axis) {
             if (!this.isSpaceAvailable(xCor, yCor, ship)) return false;
             let y = yCor;
@@ -14,8 +14,8 @@ class GameBoard {
 
             while (length) {
                 if (this.field[xCor][y] instanceof Ship) return false;
-                if (!this.field[xCor][y]) return false;
                 this.field[xCor][y] = ship;
+                ship.axis = false;
                 y++;
                 length--;
             }
@@ -27,7 +27,6 @@ class GameBoard {
 
             while (length) {
                 if (this.field[x][yCor] instanceof Ship) return false;
-                if (!this.field[x][yCor]) return false;
                 this.field[x][yCor] = ship;
                 ship.axis = true;
                 x++;
@@ -37,7 +36,7 @@ class GameBoard {
         return true;
     }
 
-    isSpaceAvailable(xCor, yCor, ship, axis = null) {
+    isSpaceAvailable(xCor, yCor, ship, axis = false) {
         if (!axis) {
             let y = yCor;
             let { length } = ship;
@@ -45,7 +44,6 @@ class GameBoard {
 
             while (length) {
                 if (this.field[xCor][y] instanceof Ship) return false;
-                if (!this.field[xCor][y]) return false;
                 y++;
                 length--;
             }
@@ -56,7 +54,6 @@ class GameBoard {
 
             while (length) {
                 if (this.field[x][yCor] instanceof Ship) return false;
-                if (!this.field[x][yCor]) return false;
                 x++;
                 length--;
             }

@@ -14,12 +14,8 @@ class PlayerMove {
                 }
 
                 if (event.target.classList.contains('grid-item')) {
-                    const index = Array.from(target.parentNode.children)
-                        .filter((item) => !item.classList.contains('overlay'))
-                        .indexOf(target);
-
-                    const rowIndex = Math.floor(index / 10);
-                    const colIndex = index % 10;
+                    const rowIndex = parseInt(target.dataset.x, 10);
+                    const colIndex = parseInt(target.dataset.y, 10);
 
                     // Makes the computer ship's visible if they are sunk
                     const selectedElement = oppBoard.field[rowIndex][colIndex];

@@ -1,6 +1,6 @@
 import Player from '../player.js';
 import Computer from '../computer.js';
-import inputHandler from './inputHandler.js';
+import InputHandler from './inputHandler.js';
 import PlayerMove from './playerMove.js';
 import GameStatus from './gameStatus.js';
 import ComputerMove from './computerMove.js';
@@ -16,7 +16,7 @@ class GameLoop {
 
     async setPlayer(value) {
         if (!this.player) this.player = new Player(value);
-        this.player.playerField.field = await inputHandler.setPlayerBoard(
+        this.player.playerField.field = await InputHandler.setPlayerBoard(
             this.player
         );
         this.activePlayer = this.player;
