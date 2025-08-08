@@ -11,7 +11,7 @@ describe('These suite of test will test the game board functionality', () => {
     });
 
     test('this will test that the specified spot in the game board is available', () => {
-        expect(testField.isSpaceAvailable(4, 5, testField)).toBe(true);
+        expect(testField.isSpaceAvailable(4, 5, testShip)).toBe(true);
     });
 
     test('this will place a ship on the board', () => {

@@ -14,7 +14,7 @@ class Player {
         this.opponentBoard = null;
         this.score = 0;
         this.ships = [2, 3, 3, 4, 5].map((length) => new Ship(length));
-        this.shipAxis = null;
+        this.shipAxis = false;
         this.selectedShipIndex = -1;
     }
 
@@ -129,10 +129,11 @@ class Player {
             axisButton.append(axisButtonSVG);
 
             axisButton.addEventListener('click', () => {
-                this.shipAxis = this.shipAxis === null ? true : null;
+                this.shipAxis = !this.shipAxis;
 
-                axisButtonSVG.src =
-                    this.shipAxis === null ? panHorizontal : panVertical;
+                axisButtonSVG.src = this.shipAxis
+                    ? panVertical
+                    : panHorizontal;
             });
 
             const container = document.createElement('div');
@@ -211,7 +212,7 @@ class Player {
             this.randomPlaceShip();
 
             document.querySelector('.manualShipPlacementContainer').remove();
-            this.shipAxis = null;
+            this.shipAxis = false;
 
             resolve();
         });
@@ -279,7 +280,7 @@ class Player {
                     document
                         .querySelector('.manualShipPlacementContainer')
                         .remove();
-                    this.shipAxis = null;
+                    this.shipAxis = false;
                     resolve();
                 } else {
                     this.sampleGridEventListeners(grid, resolve);

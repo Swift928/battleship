@@ -1,16 +1,24 @@
-/* eslint-disable no-await-in-loop */
-class inputHandler {
+/* eslint-disable no-alert */
+
+class InputHandler {
     static async getUserBoardInput(playerName) {
-        // eslint-disable-next-line no-alert
         return prompt(
-            `${playerName}, do you want to place the ships, or have them randomly assigned! (Type 'Yes' to place ships, 'No' to randomly assign ships) `
+            `${playerName}, do you want to place the ships, or have them randomly assigned? (Type 'Yes' to place ships, 'No' to randomly assign ships)`
         );
     }
 
     static async setPlayerBoard(player) {
-        await player.manualShipPlacement();
+        const response = await InputHandler.getUserBoardInput(player.playerName);
+
+        if (response && response.trim().toLowerCase().startsWith('n')) {
+            player.randomPlaceShip();
+        } else {
+            await player.manualShipPlacement();
+        }
+
         return player.playerField.field;
     }
 }
 
-export default inputHandler;
+export default InputHandler;
+

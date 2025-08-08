@@ -74,9 +74,9 @@ class FieldCreation {
                     ? 'rotate(90deg)'
                     : '';
                 shipsContainer.push(knownVessel);
-            }
 
-            thisBoard.append(knownVessel.container);
+                thisBoard.append(knownVessel.container);
+            }
         }
         thisBoard.append(gridItem);
     }

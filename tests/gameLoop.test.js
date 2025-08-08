@@ -1,6 +1,6 @@
 import { jest } from '@jest/globals';
 import GameLoop from '../src/gameFunctions/gameLoop.js';
-import inputHandler from '../src/gameFunctions/inputHandler.js';
+import InputHandler from '../src/gameFunctions/inputHandler.js';
 import GameBoard from '../src/gameBoard.js';
 
 describe('This suite will test the game loop functionality', () => {
@@ -8,7 +8,7 @@ describe('This suite will test the game loop functionality', () => {
 
     beforeEach(() => {
         jest.resetAllMocks();
-        inputHandler.setPlayerBoard = jest
+        InputHandler.setPlayerBoard = jest
             .fn()
             .mockResolvedValue(new GameBoard().field);
         game = new GameLoop();
